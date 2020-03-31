@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>都道府県別</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>都道府県別</h1>
+        <div>
+            Last Update: <span id="update"></span>
+        </div>
+        <div id="data" style="display: table;">
+            
+        </div>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="prefs.js"></script>
+    <script>
+        $("#update").text(data.lastUpdate);
+        var c = $("#data");
+        var row = $('<div style="display: table-row"></div>');
+        var x = 0;
+        data.prefs.forEach(pref => {
+            var div = $('<div style="max-width: 200px; max-height: 200; display: table-cell"></div>');
+            var prefName = $('<div></div>');
+            prefName.text(pref.pref);
+            div.append(prefName);
+            var canv =  $('<canvas></canvas');
+            div.append(canv);
+            row.append(div);
+        
+            //var canv = document.getElementById(pref.pref);
+            var ctx = canv.get(0).getContext("2d");
+            new Chart(ctx, {
+               type: 'line',
+               data: {
+                   labels: pref.dates,
+                   datasets: [{
+                           label: pref.pref,
+                           data: pref.patients,
+                           backgroundColor: "rgba(153,255,51,0.4)"
+                   }]
+               },
+               options: {
+                   legend: {
+                       display: false
+                   },
+                   scales: {
+                       yAxes: [{
+                               ticks: {
+                                   beginAtZero: true
+                               }
+                       }],
+                       xAxes: [{
+                           display: false
+                       }]
+
+                   }
+               }
+            });
+            ++x;
+            if (x == 5) {
+                x = 0;
+                c.append(row);
+                row = $('<div style="display: table-row"></div>');
+            }
+        });
+        if (x > 0) {
+            c.append(row);
+        }
+    </script>
+    </body>
+</html>
