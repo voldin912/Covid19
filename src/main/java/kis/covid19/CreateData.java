@@ -53,7 +53,7 @@ public class CreateData {
         }
     }
     
-    public static void main_(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         Prefs prefs = new Prefs();
         prefs.prefs = prefString.lines()
                 .map(p -> p.split(",")[1])
@@ -71,7 +71,8 @@ public class CreateData {
                 "prefs2020-03-27",
                 "input-pref2020-03-28",
                 "input-pref2020-03-29",
-                "input-pref2020-03-30")
+                "input-pref2020-03-30",
+                "input-pref2020-03-31")
               .map(p -> Path.of("data/%s.json".formatted(p)))
               .forEach(path -> {
                   try(var is = Files.newInputStream(path)) {
