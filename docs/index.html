@@ -36,17 +36,17 @@
             var rate;
             if (pre === 0) {
                 if (post > 0) {
-                    rate = 1.25;
+                    rate = 1.5;
                 } else {
                     rate = 1;
                 }
             } else {
                 rate = post / pre;
             }
-            if (rate > 1.25) {
+            if (rate > 1.5) {
                 rate = 1;
             } else {
-                rate = (rate - 1) / 0.25;
+                rate = (rate - 1) / 0.5;
             }
             console.log(pref.pref + ":" + Math.floor(255 * rate));
             areas.push({
