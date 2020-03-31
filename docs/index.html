@@ -10,22 +10,53 @@
         <div>
             Last Update: <span id="update"></span>
         </div>
+        <div id="map"></div>
+        (赤: 感染拡大中, 緑: 感染収れん)
         <div id="data" style="display: table;">
             
         </div>
         
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="jquery.japan-map.min.js"></script>
     <script src="prefs.js"></script>
     <script>
         $("#update").text(data.lastUpdate);
         var c = $("#data");
         var row = $('<div style="display: table-row"></div>');
         var x = 0;
+        var areas = [];
         data.prefs.forEach(pref => {
             var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
             var prefName = $('<div></div>');
-            prefName.text(pref.pref + "(" + pref.patients.slice(-1)[0] + ")");
+            var slice = pref.patients.slice(-3);
+            
+            var pre = slice[0];
+            var post = slice[2];
+            var rate;
+            if (pre === 0) {
+                if (post > 0) {
+                    rate = 1.25;
+                } else {
+                    rate = 1;
+                }
+            } else {
+                rate = post / pre;
+            }
+            if (rate > 1.25) {
+                rate = 1;
+            } else {
+                rate = (rate - 1) / 0.25;
+            }
+            console.log(pref.pref + ":" + Math.floor(255 * rate));
+            areas.push({
+                code: pref.code,
+                jp: pref.pref,
+                color: "rgba(" + Math.floor(255 * rate) + "," + Math.floor(255 * (1-rate)) + ",0,.7)",
+                prefectures: [pref.code]
+            });
+            
+            prefName.text(pref.pref + "(" + post + ")");
             div.append(prefName);
             var canv =  $('<canvas></canvas');
             div.append(canv);
@@ -70,6 +101,12 @@
         if (x > 0) {
             c.append(row);
         }
+        $("#map").japanMap({
+            areas: areas,
+            movesIslands: true,
+            height: 300
+        });
+        
     </script>
     </body>
 </html>

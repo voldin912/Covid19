@@ -42,11 +42,13 @@ public class CreateData {
     @Data
     @NoArgsConstructor
     static class _Pref {
+        int code;
         String pref;
         List<Integer> patients;
         List<String> dates;
         
-        _Pref(String pref) {
+        _Pref(String code, String pref) {
+            this.code = Integer.parseInt(code);
             this.pref = pref;
             patients = new ArrayList<>();
             dates = new ArrayList<>();
@@ -56,8 +58,8 @@ public class CreateData {
     public static void main(String[] args) throws IOException {
         Prefs prefs = new Prefs();
         prefs.prefs = prefString.lines()
-                .map(p -> p.split(",")[1])
-                .map(_Pref::new)
+                .map(p -> p.split(","))
+                .map(p -> new _Pref(p[0], p[1]))
                 .collect(Collectors.toUnmodifiableList());
 
         var mapper = new ObjectMapper();
