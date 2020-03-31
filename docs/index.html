@@ -23,7 +23,7 @@
         var row = $('<div style="display: table-row"></div>');
         var x = 0;
         data.prefs.forEach(pref => {
-            var div = $('<div style="max-width: 200px; max-height: 200; display: table-cell"></div>');
+            var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
             var prefName = $('<div></div>');
             prefName.text(pref.pref);
             div.append(prefName);
