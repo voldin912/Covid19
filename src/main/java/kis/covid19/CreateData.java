@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,17 +66,8 @@ public class CreateData {
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        Stream.of(
-                "prefs2020-03-23",
-                "prefs2020-03-24",
-                "prefs2020-03-25",
-                "prefs2020-03-26",
-                "prefs2020-03-27",
-                "input-pref2020-03-28",
-                "input-pref2020-03-29",
-                "input-pref2020-03-30",
-                "input-pref2020-03-31")
-              .map(p -> Path.of("data/%s.json".formatted(p)))
+        Stream.iterate(LocalDate.of(2020,3,8), d -> d.isBefore(LocalDate.of(2020,4,1)), d -> d.plusDays(1))
+              .map(d -> Path.of("data/prefs%s.json".formatted(d)))
               .forEach(path -> {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
