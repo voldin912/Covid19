@@ -43,19 +43,20 @@
             var pre = slice[0];
             var post = slice[2];
             var rate;
+            const thresould = 1.5;
             if (pre === 0) {
                 if (post > 0) {
-                    rate = 1.5;
+                    rate = thresould;
                 } else {
                     rate = 1;
                 }
             } else {
                 rate = post / pre;
             }
-            if (rate > 1.5) {
+            if (rate > thresould) {
                 rate = 1;
             } else {
-                rate = (rate - 1) / 0.5;
+                rate = (Math.sqrt(rate) - 1) / (Math.sqrt(thresould) - 1);
             }
             areas.push({
                 code: pref.code,
