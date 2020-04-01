@@ -27,7 +27,8 @@ public class ScrapeFromMhlw {
         // var url = "https://www.mhlw.go.jp/stf/newpage_10442.html"; // 3/25
         // var url = "https://www.mhlw.go.jp/stf/newpage_10426.html"; // 3/24
         // var url = "https://www.mhlw.go.jp/stf/newpage_10595.html"; // 3/30
-        var url = "https://www.mhlw.go.jp/stf/newpage_10636.html"; // 3/31
+        // var url = "https://www.mhlw.go.jp/stf/newpage_10636.html"; // 3/31
+        var url = "https://www.mhlw.go.jp/stf/newpage_10651.html"; // 4/1
         var conn = Jsoup.connect(url);
         var doc = conn.get();
 
