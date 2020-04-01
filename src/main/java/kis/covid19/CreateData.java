@@ -66,8 +66,12 @@ public class CreateData {
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        Stream.iterate(LocalDate.of(2020,3,8), d -> d.isBefore(LocalDate.of(2020,4,1)), d -> d.plusDays(1))
-              .map(d -> Path.of("data/prefs%s.json".formatted(d)))
+        Stream.concat(
+                Stream.iterate(LocalDate.of(2020,3,8), 
+                        d -> d.isBefore(LocalDate.of(2020,4,1)), d -> d.plusDays(1))
+                      .map(d -> Path.of("data/prefs%s.json".formatted(d))),
+                //Stream.of(Path.of("data/prefs2020-04-01.json")))
+                Stream.empty())
               .forEach(path -> {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
