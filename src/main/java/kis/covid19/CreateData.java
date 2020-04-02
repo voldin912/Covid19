@@ -2,13 +2,16 @@ package kis.covid19;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -65,6 +68,8 @@ public class CreateData {
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
+        List<List<Pref>> latest = new ArrayList<>();
+        latest.add(null);
         Stream.concat(
                 Stream.iterate(LocalDate.of(2020,3,8), d -> d.plusDays(1))
                       .map(d -> Path.of("data/prefs%s.json".formatted(d)))
@@ -75,6 +80,7 @@ public class CreateData {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
                             InputPref.class);
+                    latest.set(0, data.prefList);
 
                     var pat = Pattern.compile("(\\d+-)?(\\d{1,2})[/-](\\d{1,2})");
                     var mat = pat.matcher(data.lastupdate);
@@ -83,9 +89,9 @@ public class CreateData {
                     }
                     LocalDate date;
                     try {
-                    date = LocalDate.now()
-                            .withMonth(Integer.parseInt(mat.group(2)))
-                            .withDayOfMonth(Integer.parseInt(mat.group(3)));
+                        date = LocalDate.now()
+                                .withMonth(Integer.parseInt(mat.group(2)))
+                                .withDayOfMonth(Integer.parseInt(mat.group(3)));
                     } catch (DateTimeException ex) {
                         throw new RuntimeException("wrong date for " + data.lastupdate);
                     }
@@ -100,9 +106,23 @@ public class CreateData {
                       throw new UncheckedIOException(ex);
                   }
               });
-        mapper.writeValue(Files.newBufferedWriter(Path.of("data/prefs.json")), prefs);
+        
+        try (var bw = Files.newBufferedWriter(Path.of("docs/prefs.js"));
+             var pw = new PrintWriter(bw)) {
+            pw.printf("let data = %s;%n", mapper.writeValueAsString(prefs));
+            latest.get(0).sort(Comparator.comparingInt(Pref::getPatients).reversed());
+            latest.get(0).remove(0);
+            pw.printf("let latest = {prefs: %s, patients: %s};%n",
+                    mapper.writeValueAsString(latest.get(0).stream()
+                                                           .map(Pref::getPref)
+                                                           .collect(Collectors.toUnmodifiableList())),
+                    mapper.writeValueAsString(latest.get(0).stream()
+                                                           .map(Pref::getPatients)
+                                                           .collect(Collectors.toUnmodifiableList())));
+        }
     }
     
+        
     
     static String prefString = """
         1,北海道

@@ -13,8 +13,14 @@
             日時は発表日時。3/29より前は都道府県合計が全国の数値より小さかったためギャップがある。
 
         </div>
+        <div style="display: inline-block">
         <div id="map"></div>
         (赤: 感染拡大中, 緑: 感染収れん)
+        </div>
+        <div style="display: inline-block; max-width: 550px; max-height: 300px; min-width: 550px; min-height: 300px;">
+            <canvas id="bar"></canvas>
+        </div>
+        <div style="display:block"></div>
         <div id="data" style="display: table;">
             
         </div>
@@ -162,7 +168,22 @@
             movesIslands: true,
             height: 300
         });
-        
+        new Chart(document.getElementById("bar").getContext("2d"), {
+            type: 'bar',
+            data: {
+                labels: latest.prefs,
+                datasets: [{
+                        label: "感染者数",
+                        data: latest.patients,
+                        backgroundColor: "rgba(0, 255, 0, 0.5)"
+                }]
+            },
+            options: {
+                legend: {
+                   display: false
+               }
+            }
+        });
     </script>
     </body>
 </html>
