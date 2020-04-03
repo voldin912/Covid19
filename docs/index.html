@@ -64,6 +64,9 @@
             } else {
                 rate = (Math.sqrt(rate) - 1) / (Math.sqrt(thresould) - 1);
             }
+            if (rate < 0) {
+                rate = 0;
+            }
             areas.push({
                 code: pref.code,
                 jp: pref.pref,

@@ -74,8 +74,8 @@ public class CreateData {
                 Stream.iterate(LocalDate.of(2020,3,8), d -> d.plusDays(1))
                       .map(d -> Path.of("data/prefs%s.json".formatted(d)))
                       .takeWhile(Files::exists),
-                //Stream.of(Path.of("data/prefs2020-04-01.json")))
-                Stream.empty())
+                Stream.of(Path.of("data/nhk/input-pref2020-04-03.json")))
+                //Stream.empty())
               .forEach(path -> {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
@@ -110,15 +110,18 @@ public class CreateData {
         try (var bw = Files.newBufferedWriter(Path.of("docs/prefs.js"));
              var pw = new PrintWriter(bw)) {
             pw.printf("let data = %s;%n", mapper.writeValueAsString(prefs));
-            latest.get(0).sort(Comparator.comparingInt(Pref::getPatients).reversed());
-            latest.get(0).remove(0);
+            var d = latest.get(0);
+            d.sort(Comparator.comparingInt(Pref::getPatients).reversed());
+            if (List.of("総計", "全国").contains(d.get(0).getPref())) {
+                d.remove(0);
+            }
             pw.printf("let latest = {prefs: %s, patients: %s};%n",
-                    mapper.writeValueAsString(latest.get(0).stream()
-                                                           .map(Pref::getPref)
-                                                           .collect(Collectors.toUnmodifiableList())),
-                    mapper.writeValueAsString(latest.get(0).stream()
-                                                           .map(Pref::getPatients)
-                                                           .collect(Collectors.toUnmodifiableList())));
+                    mapper.writeValueAsString(d.stream()
+                                               .map(Pref::getPref)
+                                               .collect(Collectors.toUnmodifiableList())),
+                    mapper.writeValueAsString(d.stream()
+                                               .map(Pref::getPatients)
+                                               .collect(Collectors.toUnmodifiableList())));
         }
     }
     

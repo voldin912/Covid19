@@ -26,8 +26,9 @@ public class ScrapeFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000610713.pdf"; // 3/21
         // var url = "https://www.mhlw.go.jp/content/10906000/000610761.pdf"; // 3/22
         // var url = "https://www.mhlw.go.jp/content/10906000/000614789.pdf"; // 3/28
-        var url = "https://www.mhlw.go.jp/content/10906000/000615354.pdf"; // 3/29
-        var date = LocalDate.of(2020, 3, 29);
+        // var url = "https://www.mhlw.go.jp/content/10906000/000615354.pdf"; // 3/29
+        var url = "https://www.mhlw.go.jp/content/10906000/000618476.pdf"; // 4/2
+        var date = LocalDate.of(2020, 4, 2);
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
                 .GET()
