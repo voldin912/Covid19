@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>都道府県別感染者数の傾向</title>
+        <title>新型コロナウィルス都道府県別感染者数の傾向</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>都道府県別感染者数の傾向</h1>
+        <h1>新型コロナウィルス都道府県別感染者数の傾向</h1>
         <div>
             Naoki Kishida(<a href="https://twitter.com/kis">@kis</a>) Last Update: <span id="update"></span><br/>
-            データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。<br/>
-            日時は発表日時。3/29より前は都道府県合計が全国の数値より小さかったためギャップがある。
 
         </div>
         <div style="display: inline-block">
@@ -24,7 +22,10 @@
         <div id="data" style="display: table;">
             
         </div>
-        
+        <div>
+            データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。<br/>
+            日時は発表日時。3/29より前は都道府県合計が全国の数値より小さかったためギャップがある。
+        </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script src="jquery.japan-map.min.js"></script>
