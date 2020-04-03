@@ -74,8 +74,8 @@ public class CreateData {
                 Stream.iterate(LocalDate.of(2020,3,8), d -> d.plusDays(1))
                       .map(d -> Path.of("data/prefs%s.json".formatted(d)))
                       .takeWhile(Files::exists),
-                Stream.of(Path.of("data/nhk/input-pref2020-04-03.json")))
-                //Stream.empty())
+                // Stream.of(Path.of("data/nhk/input-pref2020-04-03.json")))
+                Stream.empty())
               .forEach(path -> {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
