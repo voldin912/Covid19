@@ -80,7 +80,8 @@
             
             var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
             var prefName = $('<div></div>');
-            prefName.text(pref.pref + "(" + post + ")");
+            var motal = pref.motarity.slice(-1)[0];
+            prefName.text(pref.pref + "(感染:" + post + " 死者:" + motal + ")");
             div.append(prefName);
             var canv =  $('<canvas></canvas');
             div.append(canv);
