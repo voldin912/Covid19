@@ -23,7 +23,7 @@
             
         </div>
         <div>
-            データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。<br/>
+            データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。死者は3/20から<br/>
             日時は発表日時。3/29より前は都道府県合計が全国の数値より小さかったためギャップがある。
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -97,15 +97,15 @@
                            label: "感染者",
                            data: pref.patients,
                            backgroundColor: "rgba(153,255,51,0.4)",
-                           pointRadius: 1,
-                           pointHitRadius: 2
+                           pointRadius: 0,
+                           pointHitRadius: 3
                         },
                         {
                            label: "死者",
                            data: pref.motarity,
                            backgroundColor: "rgba(255,53,51,1)",
-                           pointRadius: 1,
-                           pointHitRadius: 2
+                           pointRadius: 0,
+                           pointHitRadius: 3
                             
                         }
                    ]
@@ -157,15 +157,15 @@
                        label: "感染者",
                        data: total,
                        backgroundColor: "rgba(153,255,51,0.4)",
-                       pointRadius: 1,
-                       pointHitRadius: 2
+                       pointRadius: 0,
+                       pointHitRadius: 3
                     },
                     {
                        label: "死者",
                        data: motarity,
                        backgroundColor: "rgba(255,53,51,1)",
-                       pointRadius: 1,
-                       pointHitRadius: 2
+                       pointRadius: 0,
+                       pointHitRadius: 3
 
                     }]
            },
