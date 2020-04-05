@@ -27,14 +27,17 @@ public class ScrapeFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000610761.pdf"; // 3/22
         // var url = "https://www.mhlw.go.jp/content/10906000/000614789.pdf"; // 3/28
         // var url = "https://www.mhlw.go.jp/content/10906000/000615354.pdf"; // 3/29
-        var url = "https://www.mhlw.go.jp/content/10906000/000618476.pdf"; // 4/2
-        var date = LocalDate.of(2020, 4, 2);
+        // var url = "https://www.mhlw.go.jp/content/10906000/000618476.pdf"; // 4/2(not found)
+        // var url = "https://www.mhlw.go.jp/content/10906000/000618732.pdf"; // 4/2
+        var url = "https://www.mhlw.go.jp/content/10906000/000618979.pdf"; // 4/4
+        var date = LocalDate.of(2020, 4, 4);
+
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
                 .GET()
                 .build();
         var res = client.send(req, BodyHandlers.ofInputStream());
-        try (var is = res.body();
+        try (var is = res.body(); 
              var doc = PDDocument.load(is)) {
             var stripper = new PDFTextStripper();
             var text = stripper.getText(doc);
