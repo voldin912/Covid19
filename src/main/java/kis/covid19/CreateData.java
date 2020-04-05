@@ -2,7 +2,6 @@ package kis.covid19;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UncheckedIOException;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -109,11 +109,13 @@ public class CreateData {
                     } catch (DateTimeException ex) {
                         throw new RuntimeException("wrong date for " + data.lastupdate);
                     }
-                    Map<String, Integer> patients = data.prefList.stream()
-                            .collect(Collectors.toUnmodifiableMap(Pref::getPref, Pref::getPatients));
+                    Map<String, Pref> patients = data.prefList.stream()
+                            .collect(Collectors.toUnmodifiableMap(Pref::getPref, Function.identity()));
+                    Pref zero = new Pref();
                     for (var p : prefs.prefs) {
                         p.dates.add(date.toString());
-                        p.patients.add(patients.getOrDefault(p.pref, 0));
+                        p.patients.add(patients.getOrDefault(p.pref, zero).patients);
+                        p.motarity.add(patients.getOrDefault(p.pref, zero).mortality);
                     }
                     prefs.lastUpdate = date.toString();
                   } catch (IOException ex) {
@@ -129,12 +131,15 @@ public class CreateData {
             if (List.of("総計", "全国").contains(d.get(0).getPref())) {
                 d.remove(0);
             }
-            pw.printf("let latest = {prefs: %s, patients: %s};%n",
+            pw.printf("let latest = {prefs: %s, patients: %s, motarity: %s};%n",
                     mapper.writeValueAsString(d.stream()
                                                .map(Pref::getPref)
                                                .collect(Collectors.toUnmodifiableList())),
                     mapper.writeValueAsString(d.stream()
                                                .map(Pref::getPatients)
+                                               .collect(Collectors.toUnmodifiableList())),
+                    mapper.writeValueAsString(d.stream()
+                                               .map(Pref::getMortality)
                                                .collect(Collectors.toUnmodifiableList())));
         }
     }
