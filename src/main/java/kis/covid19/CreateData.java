@@ -26,9 +26,21 @@ import lombok.NoArgsConstructor;
  */
 public class CreateData {
     @Data
+    @NoArgsConstructor
     static class Pref {
         String pref;
         int patients;
+        int hospitalizations;
+        int discharges;
+        int mortality;
+
+        public Pref(String pref, String patients, String hospitalizations, String discharges, String mortality) {
+            this.pref = pref;
+            this.patients = Integer.parseInt(patients);
+            this.hospitalizations = Integer.parseInt(hospitalizations);
+            this.discharges = Integer.parseInt(discharges);
+            this.mortality = Integer.parseInt(mortality);
+        }
     }
     
     @Data
@@ -40,21 +52,23 @@ public class CreateData {
     @Data
     static class Prefs {
         String lastUpdate;
-        List<_Pref> prefs = new ArrayList<>();
+        List<ChartPref> prefs = new ArrayList<>();
     }
     @Data
     @NoArgsConstructor
-    static class _Pref {
+    static class ChartPref {
         int code;
         String pref;
         List<Integer> patients;
+        List<Integer> motarity;
         List<String> dates;
         
-        _Pref(String code, String pref) {
+        ChartPref(String code, String pref) {
             this.code = Integer.parseInt(code);
             this.pref = pref;
             patients = new ArrayList<>();
             dates = new ArrayList<>();
+            motarity = new ArrayList<>();
         }
     }
     
@@ -62,7 +76,7 @@ public class CreateData {
         Prefs prefs = new Prefs();
         prefs.prefs = prefString.lines()
                 .map(p -> p.split(","))
-                .map(p -> new _Pref(p[0], p[1]))
+                .map(p -> new ChartPref(p[0], p[1]))
                 .collect(Collectors.toUnmodifiableList());
 
         var mapper = new ObjectMapper();
