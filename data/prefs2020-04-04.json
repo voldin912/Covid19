@@ -56,10 +56,10 @@
     "mortality" : 0
   }, {
     "pref" : "福岡県",
-    "patients" : 66,
+    "patients" : 119,
     "hospitalizations" : 61,
     "discharges" : 5,
-    "mortality" : 0
+    "mortality" : 1
   }, {
     "pref" : "茨城県",
     "patients" : 54,
