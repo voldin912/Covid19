@@ -142,7 +142,8 @@
         var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
         var prefName = $('<div></div>');
         var post = total.slice(-1)[0];
-        prefName.text("全国(" + post + ")");
+        var mot = motarity.slice(-1)[0];
+        prefName.text("全国(感染:" + post + " 死者:" + mot + ")");
         div.append(prefName);
         var canv =  $('<canvas></canvas');
         div.append(canv);
