@@ -24,9 +24,10 @@ public class ScrapeDetailFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000615354.pdf"; // 3/29
         // var url = "https://www.mhlw.go.jp/content/10906000/000618979.pdf"; // 4/4
         // var url = "https://www.mhlw.go.jp/content/10906000/000619075.pdf"; // 4/5
-        // var url = "https://www.mhlw.go.jp/content/10906000/000619390.pdf"; // 4/6 with index(temporal)
-        // var url = "https://www.mhlw.go.jp/content/10906000/000619752.pdf"; // 4/7
-        var url = "https://www.mhlw.go.jp/content/10906000/000620185.pdf"; // 4/8
+        // var url = "https://www.mhlw.go.jp/content/10906000/000619390.pdf"; // 4/6 with index
+        // var url = "https://www.mhlw.go.jp/content/10906000/000619752.pdf"; // 4/7 no index
+        // var url = "https://www.mhlw.go.jp/content/10906000/000620185.pdf"; // 4/8 with index
+        var url = "https://www.mhlw.go.jp/content/10906000/000620471.pdf"; // 4/9
         
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
@@ -52,7 +53,7 @@ public class ScrapeDetailFromMhlwPDF {
             var data = text.lines()
                     .filter(line -> pat.matcher(line).find())
                     .map(line -> line.split("\\s+"))
-                    .map(ar -> new CreateData.Pref(ar[1], ar[2], 
+                    .map(ar -> new CreateData.Pref(ar[ar.length - 10], ar[ar.length - 9], 
                             ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
                     .collect(Collectors.toUnmodifiableList());
             PrefJsonProc.writeJson(date, data);
