@@ -27,7 +27,8 @@ public class ScrapeDetailFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000619390.pdf"; // 4/6 with index
         // var url = "https://www.mhlw.go.jp/content/10906000/000619752.pdf"; // 4/7 no index
         // var url = "https://www.mhlw.go.jp/content/10906000/000620185.pdf"; // 4/8 with index
-        var url = "https://www.mhlw.go.jp/content/10906000/000620471.pdf"; // 4/9
+        // var url = "https://www.mhlw.go.jp/content/10906000/000620471.pdf"; // 4/9
+        var url = "https://www.mhlw.go.jp/content/10900000/000620956.pdf"; // 4/10
         
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
@@ -39,6 +40,7 @@ public class ScrapeDetailFromMhlwPDF {
              var doc = PDDocument.load(is)) {
             var stripper = new PDFTextStripper();
             var text = stripper.getText(doc);
+            System.out.println(text);
             var daypat = Pattern.compile("([０-９0-9]+)月([０-９0-9]+)日");
             var daymat = daypat.matcher(text);
             if (!daymat.find()) {
@@ -53,7 +55,7 @@ public class ScrapeDetailFromMhlwPDF {
             var data = text.lines()
                     .filter(line -> pat.matcher(line).find())
                     .map(line -> line.split("\\s+"))
-                    .map(ar -> new CreateData.Pref(ar[ar.length - 10], ar[ar.length - 9], 
+                    .map(ar -> new CreateData.Pref(ar[0], ar[ar.length - 9], 
                             ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
                     .collect(Collectors.toUnmodifiableList());
             PrefJsonProc.writeJson(date, data);
