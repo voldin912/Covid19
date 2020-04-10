@@ -15,7 +15,6 @@
         <h1>新型コロナウィルス都道府県別感染者数の傾向</h1>
         <div>
             Naoki Kishida(<a href="https://twitter.com/kis">@kis</a>) Last Update: <span id="update"></span><br/>
-
         </div>
         <div style="display: inline-block">
         <div id="map"></div>
@@ -29,6 +28,10 @@
             <input type="radio" id="type1" name="type" value="1" checked><label for="type1">感染者+死亡者</label>
             <input type="radio" id="type2" name="type" value="2"><label for="type2">感染者</label>
             <input type="radio" id="type3" name="type" value="3"><label for="type3">死亡者</label>
+        </div>
+        <div>
+            <input type="radio" id="axis1" name="axis" value="1" checked><label for="axis1">線形軸</label>
+            <input type="radio" id="axis2" name="axis" value="2"><label for="axis2">対数軸</label>
         </div>
         <div id="data" style="display: table;">
             
@@ -131,7 +134,8 @@
                        yAxes: [{
                                ticks: {
                                    beginAtZero: true
-                               }
+                               },
+                               type: 'linear'
                        }],
                        xAxes: [{
                            display: false
@@ -194,7 +198,8 @@
                    yAxes: [{
                            ticks: {
                                beginAtZero: true
-                           }
+                           },
+                           type: 'linear'
                    }],
                    xAxes: [{
                        display: false
@@ -213,7 +218,7 @@
             movesIslands: true,
             height: 300
         });
-        new Chart(document.getElementById("bar").getContext("2d"), {
+        var prefsChart = new Chart(document.getElementById("bar").getContext("2d"), {
             type: 'bar',
             data: {
                 labels: latest.prefs,
@@ -245,6 +250,19 @@
                 }
                 ch.update();
             });
+        });
+        
+        $('input[name="axis"]:radio').change(function() {
+            var type = 'linear';
+            if ($(this).val() === '2') {
+                type = 'logarithmic';
+            }
+            charts.forEach(ch => {
+                ch.options.scales.yAxes[0].type = type;
+                ch.update();
+            });
+            prefsChart.options.scales.yAxes[0].type = type;
+            prefsChart.update();
         });
     </script>
     </body>
