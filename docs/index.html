@@ -127,6 +127,7 @@
                    ]
                },
                options: {
+                   pref: true,
                    legend: {
                        display: false
                    },
@@ -191,6 +192,7 @@
                     }]
            },
            options: {
+               pref: false,
                legend: {
                    display: false
                },
@@ -231,6 +233,13 @@
             options: {
                 legend: {
                    display: false
+               },
+               scales: {
+                   xAxes: [{
+                           ticks: {
+                               maxRotation: 90
+                           }
+                   }]
                }
             }
         });
@@ -259,6 +268,13 @@
             }
             charts.forEach(ch => {
                 ch.options.scales.yAxes[0].type = type;
+                if (ch.options.pref) {
+                    if ($(this).val() === '2') {
+                        ch.options.scales.yAxes[0].ticks.max = 2000;//latest.patients[0];
+                    } else {
+                        delete ch.options.scales.yAxes[0].ticks.max;
+                    }
+                }
                 ch.update();
             });
             prefsChart.options.scales.yAxes[0].type = type;
