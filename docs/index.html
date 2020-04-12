@@ -79,6 +79,13 @@
             } else {
                 rate = post / pre;
             }
+            var weekAgo = pref.patients.slice(-8)[0];
+            var rateText;
+            if (weekAgo === 0) {
+                rateText = "-倍/週";
+            } else {
+                rateText = (Math.round(post / weekAgo * 10) / 10) + "倍/週";
+            }
             if (rate > thresould) {
                 rate = 1;
             } else {
@@ -99,6 +106,9 @@
             var motal = pref.motarity.slice(-1)[0];
             prefName.text(pref.pref + "(感染:" + post + " 死者:" + motal + ")");
             div.append(prefName);
+            var rateDiv = $('<div></div>');
+            rateDiv.text(rateText);
+            div.append(rateDiv);
             var canv =  $('<canvas></canvas');
             div.append(canv);
             row.append(div);
