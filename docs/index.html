@@ -10,6 +10,18 @@
         <meta property="og:url" content="https://kishida.github.io/covid19/"/>
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:site" content="@kis"/>
+        <style type="text/css">
+            .tableRow {
+                display: table-row;
+            }
+            .chartCell {
+                max-width: 200px;
+                max-height: 200px;
+                min-width: 200px;
+                min-height: 200px;
+                display: table-cell;
+            }
+        </style>
     </head>
     <body>
         <h1>新型コロナウィルス都道府県別感染者数の傾向</h1>
@@ -48,7 +60,7 @@
     <script>
         $("#update").text(data.lastUpdate);
         var c = $("#data");
-        var row = $('<div style="display: table-row"></div>');
+        var row = $('<div class="tableRow"></div>');
         var firstrow = row;
         var x = 1;
         var areas = [];
@@ -79,13 +91,7 @@
             } else {
                 rate = post / pre;
             }
-            var weekAgo = pref.patients.slice(-8)[0];
-            var rateText;
-            if (weekAgo === 0) {
-                rateText = "-倍/週";
-            } else {
-                rateText = (Math.round(post / weekAgo * 10) / 10) + "倍/週";
-            }
+
             if (rate > thresould) {
                 rate = 1;
             } else {
@@ -101,127 +107,24 @@
                 prefectures: [pref.code]
             });
             
-            var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
-            var prefName = $('<div></div>');
             var motal = pref.motarity.slice(-1)[0];
-            prefName.text(pref.pref + "(感染:" + post + " 死者:" + motal + ")");
-            div.append(prefName);
-            var rateDiv = $('<div></div>');
-            rateDiv.text(rateText);
-            div.append(rateDiv);
-            var canv =  $('<canvas></canvas');
-            div.append(canv);
+            [div, chart] = createChart(pref.pref, pref.dates, post, motal, pref.patients, pref.motarity, true);
             row.append(div);
-        
-            //var canv = document.getElementById(pref.pref);
-            var ctx = canv.get(0).getContext("2d");
-            var chart = new Chart(ctx, {
-               type: 'line',
-               data: {
-                   labels: pref.dates,
-                   datapool: [{
-                           label: "感染者",
-                           data: pref.patients,
-                           backgroundColor: "rgba(153,255,51,0.4)",
-                           pointRadius: 0,
-                           pointHitRadius: 3
-                        },
-                        {
-                           label: "死者",
-                           data: pref.motarity,
-                           backgroundColor: "rgba(255,53,51,1)",
-                           pointRadius: 0,
-                           pointHitRadius: 3
-                            
-                        }
-                   ]
-               },
-               options: {
-                   pref: true,
-                   legend: {
-                       display: false
-                   },
-                   scales: {
-                       yAxes: [{
-                               ticks: {
-                                   beginAtZero: true
-                               },
-                               type: 'linear'
-                       }],
-                       xAxes: [{
-                           display: false
-                       }]
-
-                   }
-               }
-            });
-            chart.data.datasets = chart.data.datapool;
-            chart.update();
             charts.push(chart);
             ++x;
-            if (x == 5) {
+            if (x === 5) {
                 x = 0;
                 c.append(row);
-                row = $('<div style="display: table-row"></div>');
+                row = $('<div class="tableRow"></div>');
             }
         });
         if (x > 0) {
             c.append(row);
         }
-        
-        var div = $('<div style="max-width: 200px; max-height: 200px; min-width: 200px; min-height: 200px; display: table-cell"></div>');
-        var prefName = $('<div></div>');
+
         var post = total.slice(-1)[0];
         var mot = motarity.slice(-1)[0];
-        prefName.text("全国(感染:" + post + " 死者:" + mot + ")");
-        div.append(prefName);
-        var canv =  $('<canvas></canvas');
-        div.append(canv);
-        row.append(div);
-
-        //var canv = document.getElementById(pref.pref);
-        var ctx = canv.get(0).getContext("2d");
-        var chart = new Chart(ctx, {
-           type: 'line',
-           data: {
-               labels: data.prefs[0].dates,
-               datapool: [{
-                       label: "感染者",
-                       data: total,
-                       backgroundColor: "rgba(153,255,51,0.4)",
-                       pointRadius: 0,
-                       pointHitRadius: 3
-                    },
-                    {
-                       label: "死者",
-                       data: motarity,
-                       backgroundColor: "rgba(255,53,51,1)",
-                       pointRadius: 0,
-                       pointHitRadius: 3
-
-                    }]
-           },
-           options: {
-               pref: false,
-               legend: {
-                   display: false
-               },
-               scales: {
-                   yAxes: [{
-                           ticks: {
-                               beginAtZero: true
-                           },
-                           type: 'linear'
-                   }],
-                   xAxes: [{
-                       display: false
-                   }]
-
-               }
-           }
-        });
-        chart.data.datasets = chart.data.datapool;
-        chart.update();
+        [div, chart] = createChart("全国", data.prefs[0].dates, post, mot, total, motarity, false);
         charts.push(chart);
         firstrow.prepend(div);
         
@@ -290,6 +193,73 @@
             prefsChart.options.scales.yAxes[0].type = type;
             prefsChart.update();
         });
+        
+        function createChart(name, dates, infect, motal, patients, motarity, pref) {
+            var weekAgo = patients.slice(-8)[0];
+            var rateText;
+            if (weekAgo === 0) {
+                rateText = "-倍/週";
+            } else {
+                rateText = (Math.round(infect / weekAgo * 100) / 100) + "倍/週";
+            }
+            
+            var div = $('<div class="chartCell"></div>');
+            var prefName = $('<div></div>');
+            prefName.text(name + "(感染:" + infect + " 死者:" + motal + ")");
+            div.append(prefName);
+            var rateDiv = $('<div></div>');
+            rateDiv.text(rateText);
+            div.append(rateDiv);
+            var canv =  $('<canvas></canvas');
+            div.append(canv);
+            row.append(div);
+        
+            var ctx = canv.get(0).getContext("2d");
+            var chart = new Chart(ctx, {
+               type: 'line',
+               data: {
+                   labels: dates,
+                   datapool: [{
+                           label: "感染者",
+                           data: patients,
+                           backgroundColor: "rgba(153,255,51,0.4)",
+                           pointRadius: 0,
+                           pointHitRadius: 3
+                        },
+                        {
+                           label: "死者",
+                           data: motarity,
+                           backgroundColor: "rgba(255,53,51,1)",
+                           pointRadius: 0,
+                           pointHitRadius: 3
+                            
+                        }
+                   ]
+               },
+               options: {
+                   pref: pref,
+                   legend: {
+                       display: false
+                   },
+                   scales: {
+                       yAxes: [{
+                               ticks: {
+                                   beginAtZero: true
+                               },
+                               type: 'linear'
+                       }],
+                       xAxes: [{
+                           display: false
+                       }]
+
+                   }
+               }
+            });
+            chart.data.datasets = chart.data.datapool;
+            chart.update();
+            return [div, chart];
+        }
+        
     </script>
     </body>
 </html>
