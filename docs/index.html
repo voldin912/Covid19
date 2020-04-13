@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="新型コロナウィルス都道府県別感染者数の傾向"/>
-        <meta property="og:description" content="4/12 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
+        <meta property="og:description" content="4/13 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
         <meta property="og:image" content="https://kishida.github.io/covid19/map.png"/>
         <meta property="og:url" content="https://kishida.github.io/covid19/"/>
         <meta name="twitter:card" content="summary"/>
@@ -280,7 +280,7 @@
                 ch.options.scales.yAxes[0].type = type;
                 if (ch.options.pref) {
                     if ($(this).val() === '2') {
-                        ch.options.scales.yAxes[0].ticks.max = 2000;//latest.patients[0];
+                        ch.options.scales.yAxes[0].ticks.max = 3000;//latest.patients[0];
                     } else {
                         delete ch.options.scales.yAxes[0].ticks.max;
                     }
