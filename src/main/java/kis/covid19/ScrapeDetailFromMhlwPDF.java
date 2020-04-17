@@ -34,7 +34,8 @@ public class ScrapeDetailFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000621407.pdf"; // 4/13
         // var url = "https://www.mhlw.go.jp/content/10906000/000621708.pdf"; // 4/14
         // var url = "https://www.mhlw.go.jp/content/10906000/000622034.pdf"; // 4/15
-        var url = "https://www.mhlw.go.jp/content/10906000/000622362.pdf"; // 4/16
+        // var url = "https://www.mhlw.go.jp/content/10906000/000622362.pdf"; // 4/16
+        var url = "https://www.mhlw.go.jp/content/10906000/000622728.pdf"; // 4/17
         
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
@@ -65,6 +66,8 @@ public class ScrapeDetailFromMhlwPDF {
                             ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
                     .collect(Collectors.toUnmodifiableList());
             PrefJsonProc.writeJson(date, data);
+            
+            CreateData.main(args);
         }
     }
 }
