@@ -195,7 +195,8 @@
         });
         
         function createChart(name, dates, infect, motal, patients, motarity, pref) {
-            var weekAgo = patients.slice(-8)[0];
+            var weekData = patients.slice(-8);
+            var weekAgo = weekData[0];
             var rateText;
             if (weekAgo === 0) {
                 rateText = "-倍/週";
@@ -208,7 +209,12 @@
             prefName.text(name + "(感染:" + infect + " 死者:" + motal + ")");
             div.append(prefName);
             var rateDiv = $('<div></div>');
-            rateDiv.text(rateText);
+            var rateSpan = $('<span></span>');
+            rateSpan.text(rateText);
+            rateDiv.append(rateSpan);
+            var compare = $('<span></span>');
+            compare.text(" 前日比 " + (weekData[7] - weekData[6]));
+            rateDiv.append(compare);
             div.append(rateDiv);
             var canv =  $('<canvas></canvas');
             div.append(canv);
