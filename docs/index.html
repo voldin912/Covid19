@@ -42,6 +42,10 @@
             <input type="radio" id="type3" name="type" value="3"><label for="type3">死亡者</label>
         </div>
         <div>
+            <input type="radio" id="calc1" name="calc" value="1" checked><label for="calc1">発生</label>
+            <input type="radio" id="calc2" name="calc" value="2"><label for="calc2">累積</label>
+        </div>
+        <div>
             <input type="radio" id="axis1" name="axis" value="1" checked><label for="axis1">線形軸</label>
             <input type="radio" id="axis2" name="axis" value="2"><label for="axis2">対数軸</label>
         </div>
@@ -157,22 +161,34 @@
             }
         });
         
-        $('input[name="type"]:radio').change(function(){
+        function typeChanged(){
+            if ($('input[name="calc"]:checked').val() === '2') {
+                offset = 0;
+                labelOffset = 0;
+            } else {
+                offset = 2;
+                labelOffset = 1;
+            }
+            var sel = $('input[name="type"]:checked').val();
             charts.forEach(ch => {
-                switch ($(this).val()) {
+                switch (sel) {
                     case '1':
-                        ch.data.datasets = [ch.data.datapool[0], ch.data.datapool[1]];
+                        ch.data.datasets = [ch.data.datapool[0 + offset], ch.data.datapool[1 + offset]];
                         break;
                     case '2':
-                        ch.data.datasets = [ch.data.datapool[0]];
+                        ch.data.datasets = [ch.data.datapool[0 + offset]];
                         break;
                     case '3':
-                        ch.data.datasets = [ch.data.datapool[1]];
+                        ch.data.datasets = [ch.data.datapool[1 + offset]];
                         break;
                 }
+                ch.data.labels = ch.data.dateLabels.slice(labelOffset);
                 ch.update();
             });
-        });
+        }
+        
+        $('input[name="type"]:radio').change(typeChanged);
+        $('input[name="calc"]:radio').change(typeChanged);
         
         $('input[name="axis"]:radio').change(function() {
             var type = 'linear';
@@ -183,7 +199,12 @@
                 ch.options.scales.yAxes[0].type = type;
                 if (ch.options.pref) {
                     if ($(this).val() === '2') {
-                        ch.options.scales.yAxes[0].ticks.max = 3000;//latest.patients[0];
+                        if ($('input[name="calc"]:checked').val() === '2') {
+                            m = 3000;
+                        } else {
+                            m = 300;
+                        }
+                        ch.options.scales.yAxes[0].ticks.max = m;
                     } else {
                         delete ch.options.scales.yAxes[0].ticks.max;
                     }
@@ -221,11 +242,22 @@
             row.append(div);
         
             var ctx = canv.get(0).getContext("2d");
+            var patdif = new Array();
+            var deathdif = new Array();
+            for (var i = 1; i < patients.length; ++i) {
+                patdif.push(Math.max(patients[i] - patients[i - 1], 0));
+                if (i <= 12) {
+                    deathdif.push(0); // until 3/20
+                } else {
+                    deathdif.push(Math.max(motarity[i] - motarity[i - 1], 0));
+                }
+            }
             var chart = new Chart(ctx, {
-               type: 'line',
+               type: 'bar',
                data: {
-                   labels: dates,
+                   dateLabels : dates,
                    datapool: [{
+                           type: 'line',
                            label: "感染者",
                            data: patients,
                            backgroundColor: "rgba(153,255,51,0.4)",
@@ -233,13 +265,26 @@
                            pointHitRadius: 3
                         },
                         {
+                           type: 'line',
                            label: "死者",
                            data: motarity,
                            backgroundColor: "rgba(255,53,51,1)",
                            pointRadius: 0,
                            pointHitRadius: 3
                             
-                        }
+                        },
+                        {
+                           type: 'bar',
+                           label: "感染者",
+                           data: patdif,
+                           backgroundColor: "rgba(0,155, 0,1)",
+                        },
+                        {
+                           type: 'bar',
+                           label: "死者",
+                           data: deathdif,
+                           backgroundColor: "rgba(255,53,51,1)",
+                        }                        
                    ]
                },
                options: {
@@ -261,7 +306,8 @@
                    }
                }
             });
-            chart.data.datasets = chart.data.datapool;
+            chart.data.datasets = [chart.data.datapool[2], chart.data.datapool[3]];
+            chart.data.labels = chart.data.dateLabels.slice(1);
             chart.update();
             return [div, chart];
         }
