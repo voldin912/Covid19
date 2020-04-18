@@ -40,6 +40,7 @@
             <input type="radio" id="type1" name="type" value="1" checked><label for="type1">感染者+死亡者</label>
             <input type="radio" id="type2" name="type" value="2"><label for="type2">感染者</label>
             <input type="radio" id="type3" name="type" value="3"><label for="type3">死亡者</label>
+            <input type="radio" id="type4" name="type" value="4"><label for="type4">拡大率</label>
         </div>
         <div>
             <input type="radio" id="calc1" name="calc" value="1" checked><label for="calc1">発生</label>
@@ -55,7 +56,8 @@
         <div>
             データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。死者は3/20から<br/>
             日時は発表日時。3/29より前は患者数であったのが感染者数に変わったためギャップがある。<br/>
-            福岡県は4/1以降は厚生労働省の集計値ではなく県の発表値を使っている。
+            福岡県は4/1から4/16日まで厚生労働省の集計値ではなく県の発表値を使っている。<br/>
+            東京都の死者は都の発表値を使っている。
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
@@ -161,14 +163,26 @@
             }
         });
         
+        typeChanged();
+        
         function typeChanged(){
             if ($('input[name="calc"]:checked').val() === '2') {
                 offset = 0;
                 labelOffset = 0;
+                logMax = 3000;
             } else {
                 offset = 2;
                 labelOffset = 1;
+                logMax = 300;
             }
+            if ($('input[name="axis"]:checked').val() === '2') {
+                type = 'logarithmic';
+            } else {
+                type = 'linear';
+            }
+            prefsChart.options.scales.yAxes[0].type = type;
+            prefsChart.update();
+            
             var sel = $('input[name="type"]:checked').val();
             charts.forEach(ch => {
                 switch (sel) {
@@ -181,7 +195,18 @@
                     case '3':
                         ch.data.datasets = [ch.data.datapool[1 + offset]];
                         break;
+                    case '4':
+                        ch.data.datasets = [ch.data.datapool[4]];
+                        labelOffset = 7;
+                        type = 'linear';
+                        break;
                 }
+                if (type === 'logarithmic' && ch.options.pref) {
+                    ch.options.scales.yAxes[0].ticks.max = logMax;
+                } else {
+                    delete ch.options.scales.yAxes[0].ticks.max;
+                }
+                ch.options.scales.yAxes[0].type = type;
                 ch.data.labels = ch.data.dateLabels.slice(labelOffset);
                 ch.update();
             });
@@ -189,31 +214,7 @@
         
         $('input[name="type"]:radio').change(typeChanged);
         $('input[name="calc"]:radio').change(typeChanged);
-        
-        $('input[name="axis"]:radio').change(function() {
-            var type = 'linear';
-            if ($(this).val() === '2') {
-                type = 'logarithmic';
-            }
-            charts.forEach(ch => {
-                ch.options.scales.yAxes[0].type = type;
-                if (ch.options.pref) {
-                    if ($(this).val() === '2') {
-                        if ($('input[name="calc"]:checked').val() === '2') {
-                            m = 3000;
-                        } else {
-                            m = 300;
-                        }
-                        ch.options.scales.yAxes[0].ticks.max = m;
-                    } else {
-                        delete ch.options.scales.yAxes[0].ticks.max;
-                    }
-                }
-                ch.update();
-            });
-            prefsChart.options.scales.yAxes[0].type = type;
-            prefsChart.update();
-        });
+        $('input[name="axis"]:radio').change(typeChanged);
         
         function createChart(name, dates, infect, motal, patients, motarity, pref) {
             var weekData = patients.slice(-8);
@@ -244,12 +245,20 @@
             var ctx = canv.get(0).getContext("2d");
             var patdif = new Array();
             var deathdif = new Array();
+            var rateInWeek = new Array();
             for (var i = 1; i < patients.length; ++i) {
                 patdif.push(Math.max(patients[i] - patients[i - 1], 0));
                 if (i <= 12) {
                     deathdif.push(0); // until 3/20
                 } else {
                     deathdif.push(Math.max(motarity[i] - motarity[i - 1], 0));
+                }
+                if (i >= 7) {
+                    if (patients[i - 7] > 0) {
+                        rateInWeek.push(patients[i] / patients[i - 7]);
+                    } else {
+                        rateInWeek.push(0);
+                    }
                 }
             }
             var chart = new Chart(ctx, {
@@ -277,14 +286,23 @@
                            type: 'bar',
                            label: "感染者",
                            data: patdif,
-                           backgroundColor: "rgba(0,155, 0,1)",
+                           backgroundColor: "rgba(0,155, 0,1)"
                         },
                         {
                            type: 'bar',
                            label: "死者",
                            data: deathdif,
-                           backgroundColor: "rgba(255,53,51,1)",
-                        }                        
+                           backgroundColor: "rgba(255,53,51,1)"
+                        },
+                        {
+                           type: 'line',
+                           label: "増加率",
+                           data: rateInWeek,
+                           borderColor: "rgba(0, 0, 0, 0.3)",
+                           backgroundColor: "rgba(255,53,51,0)",
+                           pointRadius: 0,
+                           pointHitRadius: 3
+                        }
                    ]
                },
                options: {
@@ -306,9 +324,6 @@
                    }
                }
             });
-            chart.data.datasets = [chart.data.datapool[2], chart.data.datapool[3]];
-            chart.data.labels = chart.data.dateLabels.slice(1);
-            chart.update();
             return [div, chart];
         }
         
