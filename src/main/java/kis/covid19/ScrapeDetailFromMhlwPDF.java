@@ -35,7 +35,8 @@ public class ScrapeDetailFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000621708.pdf"; // 4/14
         // var url = "https://www.mhlw.go.jp/content/10906000/000622034.pdf"; // 4/15
         // var url = "https://www.mhlw.go.jp/content/10906000/000622362.pdf"; // 4/16
-        var url = "https://www.mhlw.go.jp/content/10906000/000622728.pdf"; // 4/17
+        // var url = "https://www.mhlw.go.jp/content/10906000/000622728.pdf"; // 4/17
+        var url = "https://www.mhlw.go.jp/content/10906000/000622835.pdf"; // 4/18
         
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
