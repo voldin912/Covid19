@@ -10,7 +10,70 @@
         <meta property="og:url" content="https://kishida.github.io/covid19/"/>
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:site" content="@kis"/>
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              crossorigin="anonymous">
         <style type="text/css">
+            body {
+                background-color: #303080;
+                color: #f0f0ff;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            .base {
+                padding: 10px 20px;
+            }
+            .signature {
+                font-size: small;
+                color: #aae;
+            }
+            .control {
+                
+            }
+            .control-label {
+                margin-bottom: .1rem;
+                font-size: small;
+                font-weight: bold;
+                color: #aae;
+            }
+            .description {
+                font-size: small;
+                color: #aae;
+            }
+            .map-chart {
+                display: inline-block;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                padding: 10px;
+            }
+            .map-description {
+                font-size: small;
+                color: #aae;
+            }
+            .bar-chart {
+                display: inline-block;
+                max-width: 550px;
+                max-height: 300px;
+                min-width: 550px;
+                min-height: 300px;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                padding-top: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-left: 5px;
+                vertical-align: top;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 100px;
+            }
+            .pref-charts {
+                display: table;
+                border-collapse: separate;
+                border-spacing: 3px 4px
+            }
             .tableRow {
                 display: table-row;
             }
@@ -20,50 +83,82 @@
                 min-width: 200px;
                 min-height: 200px;
                 display: table-cell;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                margin: 10px;
+                padding: 3px;
+            }
+            .pref-name {
+                font-weight: bold;
+            }
+            .value-label {
+                font-size: small;
+                color: #ccf;
+            }
+            .value {
+                font-weight: bold;
+                color: #ccf;
+            }
+            .rate-label {
+                font-size: small;
+                color: #ccf;
+            }
+            .rate-value {
+                font-weight: bold;
+                font-size: small;
+                color: #ccf;
             }
         </style>
     </head>
     <body>
+        <div class="base">
         <h1>新型コロナウィルス都道府県別感染者数の傾向</h1>
-        <div>
+        <div class="signature">
             Naoki Kishida(<a href="https://twitter.com/kis">@kis</a>) Last Update: <span id="update"></span><br/>
         </div>
-        <div style="display: inline-block">
+        <div class="map-chart">
+            <h2>感染拡大状況</h2>
         <div id="map"></div>
+        <div class="map-description">
         (赤: 感染拡大中, 緑: 感染収れん)
         </div>
-        <div style="display: inline-block; max-width: 550px; max-height: 300px; min-width: 550px; min-height: 300px;">
+        </div>
+        <div class="bar-chart">
+            <h2>感染者数</h2>
             <canvas id="bar"></canvas>
         </div>
         <div style="display:block"></div>
-        <div>
-            <input type="radio" id="type1" name="type" value="1" checked><label for="type1">感染者+死亡者</label>
-            <input type="radio" id="type2" name="type" value="2"><label for="type2">感染者</label>
-            <input type="radio" id="type3" name="type" value="3"><label for="type3">死亡者</label>
-            <input type="radio" id="type4" name="type" value="4"><label for="type4">拡大率</label>
+        <div class="control">
+            <input type="radio" id="type1" name="type" value="1" checked><label for="type1" class="control-label">感染者+死亡者</label>
+            <input type="radio" id="type2" name="type" value="2"><label for="type2" class="control-label">感染者</label>
+            <input type="radio" id="type3" name="type" value="3"><label for="type3" class="control-label">死亡者</label>
+            <input type="radio" id="type4" name="type" value="4"><label for="type4" class="control-label">拡大率(累積)</label>
         </div>
-        <div>
-            <input type="radio" id="calc1" name="calc" value="1" checked><label for="calc1">発生</label>
-            <input type="radio" id="calc2" name="calc" value="2"><label for="calc2">累積</label>
+        <div class="control">
+            <input type="radio" id="calc1" name="calc" value="1" checked><label for="calc1" class="control-label">発生</label>
+            <input type="radio" id="calc2" name="calc" value="2"><label for="calc2" class="control-label">累積</label>
         </div>
-        <div>
-            <input type="radio" id="axis1" name="axis" value="1" checked><label for="axis1">線形軸</label>
-            <input type="radio" id="axis2" name="axis" value="2"><label for="axis2">対数軸</label>
+        <div class="control">
+            <input type="radio" id="axis1" name="axis" value="1" checked><label for="axis1" class="control-label">線形軸</label>
+            <input type="radio" id="axis2" name="axis" value="2"><label for="axis2" class="control-label">対数軸</label>
         </div>
-        <div id="data" style="display: table;">
-            
+        <div id="data" class="pref-charts">
         </div>
-        <div>
+        <div class="description">
             データは <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000121431_00086.html">厚生労働省のサイト</a>の3/8発表分以降。死者は3/20から<br/>
             日時は発表日時。3/29より前は患者数であったのが感染者数に変わったためギャップがある。<br/>
             福岡県は4/1から4/16日まで厚生労働省の集計値ではなく県の発表値を使っている。<br/>
             東京都の死者は都の発表値を使っている。
+        </div>
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script src="jquery.japan-map.min.js"></script>
     <script src="prefs.js"></script>
     <script>
+        var graphFontColor = 'rgba(255, 255, 255, .8)';
+        var axisLineColor = 'rgba(255, 255, 255, .2)';
+        Chart.defaults.global.defaultFontColor = graphFontColor;
         $("#update").text(data.lastUpdate);
         var c = $("#data");
         var row = $('<div class="tableRow"></div>');
@@ -109,7 +204,7 @@
             areas.push({
                 code: pref.code,
                 jp: pref.pref,
-                color: "rgba(" + Math.floor(255 * rate) + "," + Math.floor(255 * (1-rate)) + ",0,.7)",
+                color: "rgba(" + Math.floor(255 * rate) + "," + Math.floor(255 * (1-rate)) + ",0,.8)",
                 prefectures: [pref.code]
             });
             
@@ -154,11 +249,23 @@
                    display: false
                },
                scales: {
-                   xAxes: [{
-                           ticks: {
-                               maxRotation: 90
-                           }
-                   }]
+                   xAxes: [
+                        {
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                maxRotation: 90
+                            }
+                        }],
+                    yAxes: [
+                        {
+                            gridLines: {
+                                color: axisLineColor,
+                                zeroLineColor: graphFontColor
+                            }
+                        }
+                    ]
                }
             }
         });
@@ -216,27 +323,37 @@
         $('input[name="calc"]:radio').change(typeChanged);
         $('input[name="axis"]:radio').change(typeChanged);
         
+        function addSpan(div, cls, text) {
+            var s = $('<span></span>');
+            s.addClass(cls);
+            s.text(text);
+            div.append(s);
+        }
+        
         function createChart(name, dates, infect, motal, patients, motarity, pref) {
             var weekData = patients.slice(-8);
             var weekAgo = weekData[0];
             var rateText;
             if (weekAgo === 0) {
-                rateText = "-倍/週";
+                rateText = "-";
             } else {
-                rateText = (Math.round(infect / weekAgo * 100) / 100) + "倍/週";
+                rateText = (Math.round(infect / weekAgo * 100) / 100);
             }
             
             var div = $('<div class="chartCell"></div>');
-            var prefName = $('<div></div>');
-            prefName.text(name + "(感染:" + infect + " 死者:" + motal + ")");
-            div.append(prefName);
+            var prefLabel = $('<div></div>');
+            addSpan(prefLabel, "pref-name", name);
+            addSpan(prefLabel, "value-label", "(感染:");
+            addSpan(prefLabel, "value", infect);
+            addSpan(prefLabel, "value-label", " 死者:");
+            addSpan(prefLabel, "value", motal);
+            addSpan(prefLabel, "value-label", ")");
+            div.append(prefLabel);
             var rateDiv = $('<div></div>');
-            var rateSpan = $('<span></span>');
-            rateSpan.text(rateText);
-            rateDiv.append(rateSpan);
-            var compare = $('<span></span>');
-            compare.text(" 前日比 " + (weekData[7] - weekData[6]));
-            rateDiv.append(compare);
+            addSpan(rateDiv, "rate-value", rateText);
+            addSpan(rateDiv, "rate-label", "倍/週");
+            addSpan(rateDiv, "rate-label", " 前日比: ");
+            addSpan(rateDiv, "rate-value", (weekData[7] - weekData[6]));
             div.append(rateDiv);
             var canv =  $('<canvas></canvas');
             div.append(canv);
@@ -269,7 +386,7 @@
                            type: 'line',
                            label: "感染者",
                            data: patients,
-                           backgroundColor: "rgba(153,255,51,0.4)",
+                           backgroundColor: "rgba(153,255,51,0.6)",
                            pointRadius: 0,
                            pointHitRadius: 3
                         },
@@ -277,7 +394,7 @@
                            type: 'line',
                            label: "死者",
                            data: motarity,
-                           backgroundColor: "rgba(255,53,51,1)",
+                           backgroundColor: "rgba(100,0,0,1)",
                            pointRadius: 0,
                            pointHitRadius: 3
                             
@@ -286,7 +403,7 @@
                            type: 'bar',
                            label: "感染者",
                            data: patdif,
-                           backgroundColor: "rgba(0,155, 0,1)"
+                           backgroundColor: "rgba(0,200, 0,1)"
                         },
                         {
                            type: 'bar',
@@ -298,7 +415,7 @@
                            type: 'line',
                            label: "増加率",
                            data: rateInWeek,
-                           borderColor: "rgba(0, 0, 0, 0.3)",
+                           borderColor: "rgba(200, 255, 200, 0.8)",
                            backgroundColor: "rgba(255,53,51,0)",
                            pointRadius: 0,
                            pointHitRadius: 3
@@ -312,6 +429,10 @@
                    },
                    scales: {
                        yAxes: [{
+                               gridLines: {
+                                   color: axisLineColor,
+                                   zeroLineColor: axisLineColor
+                               },
                                ticks: {
                                    beginAtZero: true
                                },
