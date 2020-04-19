@@ -16,7 +16,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
  * @author naoki
  */
 public class ScrapeDetailFromMhlwPDF {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String... args) throws IOException, InterruptedException {
         // var url = "https://www.mhlw.go.jp/content/10906000/000610652.pdf"; // 3/20 with detail
         // var url = "https://www.mhlw.go.jp/content/10906000/000610713.pdf"; // 3/21
         // var url = "https://www.mhlw.go.jp/content/10906000/000610761.pdf"; // 3/22
@@ -36,8 +36,12 @@ public class ScrapeDetailFromMhlwPDF {
         // var url = "https://www.mhlw.go.jp/content/10906000/000622034.pdf"; // 4/15
         // var url = "https://www.mhlw.go.jp/content/10906000/000622362.pdf"; // 4/16
         // var url = "https://www.mhlw.go.jp/content/10906000/000622728.pdf"; // 4/17
-        var url = "https://www.mhlw.go.jp/content/10906000/000622835.pdf"; // 4/18
-        
+        // var url = "https://www.mhlw.go.jp/content/10906000/000622835.pdf"; // 4/18
+        if (args == null || args.length < 1) {
+            throw new IllegalArgumentException("need url");
+        }
+        var url = args[0];
+
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
                 .GET()
@@ -67,8 +71,6 @@ public class ScrapeDetailFromMhlwPDF {
                             ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
                     .collect(Collectors.toUnmodifiableList());
             PrefJsonProc.writeJson(date, data);
-            
-            CreateData.main(args);
         }
     }
 }
