@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="新型コロナウィルス都道府県別感染者数の傾向"/>
-        <meta property="og:description" content="4/20 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
+        <meta property="og:description" content="4/21 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
         <meta property="og:image" content="https://kishida.github.io/covid19/map.png"/>
         <meta property="og:url" content="https://kishida.github.io/covid19/"/>
         <meta name="twitter:card" content="summary"/>
@@ -59,15 +59,12 @@
                 min-height: 300px;
                 background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 4px;
-                padding-top: 20px;
+                padding-top: 10px;
+                padding-bottom: 100px;
                 padding-left: 10px;
                 padding-right: 10px;
                 margin-left: 5px;
                 vertical-align: top;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-top: 10px;
-                padding-bottom: 100px;
             }
             .pref-charts {
                 display: table;
@@ -78,15 +75,13 @@
                 display: table-row;
             }
             .chartCell {
-                max-width: 200px;
+                max-width: 210px;
                 max-height: 200px;
-                min-width: 200px;
+                min-width: 210px;
                 min-height: 200px;
                 display: table-cell;
                 background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 4px;
-                margin: 10px;
-                padding: 3px;
             }
             .pref-name {
                 font-weight: bold;
@@ -156,6 +151,8 @@
     <script src="jquery.japan-map.min.js"></script>
     <script src="prefs.js"></script>
     <script>
+        const target = 100;
+        const dailyTotal = latest.patients.reduce((a, b) => a + b, 0);
         var graphFontColor = 'rgba(255, 255, 255, .8)';
         var axisLineColor = 'rgba(255, 255, 255, .2)';
         Chart.defaults.global.defaultFontColor = graphFontColor;
@@ -276,7 +273,7 @@
             if ($('input[name="calc"]:checked').val() === '2') {
                 offset = 0;
                 labelOffset = 0;
-                logMax = 3000;
+                logMax = 3500;
             } else {
                 offset = 2;
                 labelOffset = 1;
@@ -350,10 +347,14 @@
             addSpan(prefLabel, "value-label", ")");
             div.append(prefLabel);
             var rateDiv = $('<div></div>');
+            var daily = weekData[7] - weekData[6];
             addSpan(rateDiv, "rate-value", rateText);
             addSpan(rateDiv, "rate-label", "倍/週");
             addSpan(rateDiv, "rate-label", " 前日比: ");
-            addSpan(rateDiv, "rate-value", (weekData[7] - weekData[6]));
+            addSpan(rateDiv, "rate-value", daily);
+            addSpan(rateDiv, "rate-label", " (目標: ");
+            addSpan(rateDiv, "rate-label", Math.round((weekData[7] * target / dailyTotal) * 10) / 10);
+            addSpan(rateDiv, "rate-label", ")");
             div.append(rateDiv);
             var canv =  $('<canvas></canvas');
             div.append(canv);
