@@ -2,7 +2,7 @@
   "lastupdate" : "2020-03-28",
   "prefList" : [ {
     "pref" : "東京都",
-    "patients" : 227,
+    "patients" : 305,
     "hospitalizations" : 193,
     "discharges" : 29,
     "mortality" : 8
