@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
  * @author naoki
  */
 public class ScrapeDetailFromMhlw {
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
 
         // var url = "https://www.mhlw.go.jp/stf/newpage_10385.html"; // 3/23 with detail
         // var url = "https://www.mhlw.go.jp/stf/newpage_10426.html"; // 3/24
@@ -21,8 +21,8 @@ public class ScrapeDetailFromMhlw {
         // var url = "https://www.mhlw.go.jp/stf/newpage_10636.html"; // 3/31
         // var url = "https://www.mhlw.go.jp/stf/newpage_10651.html"; // 4/1
         // var url = "https://www.mhlw.go.jp/stf/newpage_10668.html"; // 4/2
-        var url = "https://www.mhlw.go.jp/stf/newpage_10688.html"; // 4/3
-        
+        // var url = "https://www.mhlw.go.jp/stf/newpage_10688.html"; // 4/3
+        var url = args[0];
         var conn = Jsoup.connect(url);
         var doc = conn.get();
 
