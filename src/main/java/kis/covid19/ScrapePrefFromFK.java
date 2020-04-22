@@ -38,12 +38,10 @@ public class ScrapePrefFromFK {
                 .orElseThrow(() -> new RuntimeException("Data not found"));
         
         // prefs
-        try (var pw = new PrintWriter("prefs%s.json".formatted(date), "UTF-8")) {
-            pw.println("""
-                       {
-                         "lastupdate":"%s",
-                         "prefList": [
-                       """.formatted(date));
+        try (var pw = new PrintWriter(String.format("prefs%s.json", date), "UTF-8")) {
+            pw.printf("{\n" +
+                       "  \"lastupdate\":\"%s\",\n" +
+                       "  \"prefList\": [\n", date);
             Elements tables = doc.select("table");
             tables.stream()
                   .filter(table -> table.select("caption").stream()
@@ -53,28 +51,23 @@ public class ScrapePrefFromFK {
                   .map(tr -> tr.select("td"))
                   .filter(tds -> tds.size() >= 2)
                   .forEach(tds -> pw.printf(
-                       """
-                           {
-                             "pref": "%s",
-                             "patients": %s
-                           },
-                       """.formatted(tds.get(0).text(), 
-                                     findInt(tds.get(1).text()))));
-            pw.println("""
-                           {
-                             "pref": "_",
-                             "patients": 0
-                           }
-                         ]
-                       }
-                       """);
+                       "    {\n" +
+                       "      \"pref\": \"%s\",\n" +
+                       "      \"patients\": %s\n" +
+                       "    },\n", tds.get(0).text(), findInt(tds.get(1).text())));
+            pw.println("    {\n" +
+                       "      \"pref\": \"_\",\n" +
+                       "      \"patients\": 0\n" +
+                       "    }\n" +
+                       "  ]\n" +
+                       "}\n");
         }
     }
     static Pattern ipat = Pattern.compile("\\d+");
     static int findInt(String s) {
         Matcher mat = ipat.matcher(s);
         if (!mat.find()) {
-            throw new IllegalArgumentException("%s is not int".formatted(s));
+            throw new IllegalArgumentException(String.format("%s is not int", s));
         }
         return Integer.parseInt(mat.group());
     }

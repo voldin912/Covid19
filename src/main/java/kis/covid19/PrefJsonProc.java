@@ -20,33 +20,26 @@ import java.util.Map;
  */
 public class PrefJsonProc {
     static void writeJson(LocalDate date, Map<String, Integer> prefs) throws IOException {
-        try (var pw = new PrintWriter("data/prefs%s.json".formatted(date), "UTF-8")) {
-            pw.print("""
-                       {
-                         "lastupdate":"%s",
-                         "prefList": [
-                       """.formatted(date));
-            prefs.forEach((pref, patients) -> pw.print(
-                       """
-                           {
-                             "pref": "%s",
-                             "patients": %d
-                           },
-                       """.formatted(pref, patients)));
-            pw.print("""
-                           {
-                             "pref": "_",
-                             "patients": 0
-                           }
-                         ]
-                       }
-                       """);
-            
+        try (var pw = new PrintWriter(String.format("data/prefs%s.json", date), "UTF-8")) {
+            pw.printf("{\n" +
+                      "  \"lastupdate\":\"%s\",\n" +
+                      "  \"prefList\": [\n", date);
+            prefs.forEach((pref, patients) -> pw.printf(
+                      "    {\n" +
+                      "      \"pref\": \"%s\",\n" +
+                      "      \"patients\": %d\n" +
+                      "    },\n", pref, patients));
+            pw.print("    {\n" +
+                     "      \"pref\": \"_\",\n" +
+                     "      \"patients\": 0\n" +
+                     "    }\n" +
+                     "  ]\n" +
+                     "}\n");
         }        
     }
     
     static void writeJson(LocalDate date, List<CreateData.Pref> prefs) throws IOException {
-        try (var pw = new PrintWriter("data/prefs%s.json".formatted(date), "utf-8")) {
+        try (var pw = new PrintWriter(String.format("data/prefs%s.json", date), "utf-8")) {
             var mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
