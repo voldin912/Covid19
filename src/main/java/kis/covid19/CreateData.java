@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -59,13 +58,15 @@ public class CreateData {
     static class ChartPref {
         int code;
         String pref;
+        int population;
         List<Integer> patients;
         List<Integer> motarity;
         List<String> dates;
         
-        ChartPref(String code, String pref) {
-            this.code = Integer.parseInt(code);
-            this.pref = pref;
+        ChartPref(String code, String pref, String population) {
+            this.code = Integer.parseInt(code.trim());
+            this.pref = pref.trim();
+            this.population = Integer.parseInt(population.trim());
             patients = new ArrayList<>();
             dates = new ArrayList<>();
             motarity = new ArrayList<>();
@@ -76,14 +77,12 @@ public class CreateData {
         Prefs prefs = new Prefs();
         prefs.prefs = prefString.lines()
                 .map(p -> p.split(","))
-                .map(p -> new ChartPref(p[0], p[1]))
+                .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
 
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        List<List<Pref>> latest = new ArrayList<>();
-        latest.add(null);
         Stream.concat(
                 Stream.iterate(LocalDate.of(2020,3,8), d -> d.plusDays(1))
                       .map(d -> Path.of(String.format("data/prefs%s.json", d)))
@@ -94,7 +93,6 @@ public class CreateData {
                   try(var is = Files.newInputStream(path)) {
                     InputPref data = mapper.readValue(is, 
                             InputPref.class);
-                    latest.set(0, data.prefList);
 
                     var pat = Pattern.compile("(\\d+-)?(\\d{1,2})[/-](\\d{1,2})");
                     var mat = pat.matcher(data.lastupdate);
@@ -126,73 +124,58 @@ public class CreateData {
         try (var bw = Files.newBufferedWriter(Path.of("docs/prefs.js"));
              var pw = new PrintWriter(bw)) {
             pw.printf("let data = %s;%n", mapper.writeValueAsString(prefs));
-            var d = latest.get(0);
-            d.sort(Comparator.comparingInt(Pref::getPatients).reversed());
-            if (List.of("総計", "全国").contains(d.get(0).getPref())) {
-                d.remove(0);
-            }
-            pw.printf("let latest = {prefs: %s, patients: %s, motarity: %s};%n",
-                    mapper.writeValueAsString(d.stream()
-                                               .map(Pref::getPref)
-                                               .collect(Collectors.toUnmodifiableList())),
-                    mapper.writeValueAsString(d.stream()
-                                               .map(Pref::getPatients)
-                                               .collect(Collectors.toUnmodifiableList())),
-                    mapper.writeValueAsString(d.stream()
-                                               .map(Pref::getMortality)
-                                               .collect(Collectors.toUnmodifiableList())));
         }
     }
     
         
     
     static String prefString = "" +
-        "1,北海道\n" +
-        "2,青森県\n" +
-        "3,岩手県\n" +
-        "4,宮城県\n" +
-        "5,秋田県\n" +
-        "6,山形県\n" +
-        "7,福島県\n" +
-        "8,茨城県\n" +
-        "9,栃木県\n" +
-        "10,群馬県\n" +
-        "11,埼玉県\n" +
-        "12,千葉県\n" +
-        "13,東京都\n" +
-        "14,神奈川県\n" +
-        "15,新潟県\n" +
-        "16,富山県\n" +
-        "17,石川県\n" +
-        "18,福井県\n" +
-        "19,山梨県\n" +
-        "20,長野県\n" +
-        "21,岐阜県\n" +
-        "22,静岡県\n" +
-        "23,愛知県\n" +
-        "24,三重県\n" +
-        "25,滋賀県\n" +
-        "26,京都府\n" +
-        "27,大阪府\n" +
-        "28,兵庫県\n" +
-        "29,奈良県\n" +
-        "30,和歌山県\n" +
-        "31,鳥取県\n" +
-        "32,島根県\n" +
-        "33,岡山県\n" +
-        "34,広島県\n" +
-        "35,山口県\n" +
-        "36,徳島県\n" +
-        "37,香川県\n" +
-        "38,愛媛県\n" +
-        "39,高知県\n" +
-        "40,福岡県\n" +
-        "41,佐賀県\n" +
-        "42,長崎県\n" +
-        "43,熊本県\n" +
-        "44,大分県\n" +
-        "45,宮崎県\n" +
-        "46,鹿児島県\n" +
-        "47,沖縄県\n" +
+        " 1,北海道  , 5320\n" +
+        " 2,青森県  , 1278\n" +
+        " 3,岩手県  , 1255\n" +
+        " 4,宮城県  , 2323\n" +
+        " 5,秋田県  ,  996\n" +
+        " 6,山形県  , 1102\n" +
+        " 7,福島県  , 1882\n" +
+        " 8,茨城県  , 2892\n" +
+        " 9,栃木県  , 1957\n" +
+        "10,群馬県  , 1960\n" +
+        "11,埼玉県  , 7310\n" +
+        "12,千葉県  , 6246\n" +
+        "13,東京都  ,13724\n" +
+        "14,神奈川県, 9159\n" +
+        "15,新潟県  , 2267\n" +
+        "16,富山県  , 1056\n" +
+        "17,石川県  , 1147\n" +
+        "18,福井県  ,  779\n" +
+        "19,山梨県  ,  823\n" +
+        "20,長野県  , 2076\n" +
+        "21,岐阜県  , 2008\n" +
+        "22,静岡県  , 3675\n" +
+        "23,愛知県  , 7525\n" +
+        "24,三重県  , 1800\n" +
+        "25,滋賀県  , 1413\n" +
+        "26,京都府  , 2599\n" +
+        "27,大阪府  , 8823\n" +
+        "28,兵庫県  , 5503\n" +
+        "29,奈良県  , 1348\n" +
+        "30,和歌山県,  945\n" +
+        "31,鳥取県  ,  565\n" +
+        "32,島根県  ,  685\n" +
+        "33,岡山県  , 1907\n" +
+        "34,広島県  , 2829\n" +
+        "35,山口県  , 1383\n" +
+        "36,徳島県  ,  743\n" +
+        "37,香川県  ,  967\n" +
+        "38,愛媛県  , 1364\n" +
+        "39,高知県  ,  714\n" +
+        "40,福岡県  , 5107\n" +
+        "41,佐賀県  ,  824\n" +
+        "42,長崎県  , 1354\n" +
+        "43,熊本県  , 1765\n" +
+        "44,大分県  , 1152\n" +
+        "45,宮崎県  , 1089\n" +
+        "46,鹿児島県, 1626\n" +
+        "47,沖縄県  , 1443\n" +
         "";
 }

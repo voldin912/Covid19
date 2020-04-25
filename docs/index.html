@@ -29,8 +29,12 @@
         </div>
         </div>
         <div class="bar-chart">
-            <h2>感染者数</h2>
+            <h2 id="bar-title">感染者数</h2>
             <canvas id="bar"></canvas>
+            <div>
+                <input type="radio" id="pop1" name="population" value="1" checked><label for="pop1" class="control-label">感染者数</label>
+                <input type="radio" id="pop2" name="population" value="2"><label for="pop2" class="control-label">10万人あたり感染者数</label>
+            </div>
         </div>
         <div style="display:block"></div>
         <div class="control">

@@ -1,5 +1,5 @@
 const target = 100;
-const dailyTotal = latest.patients.reduce((a, b) => a + b, 0);
+const dailyTotal = data.prefs.reduce((a, b) => a + b.patients.slice(-1)[0], 0);
 var graphFontColor = 'rgba(255, 255, 255, .8)';
 var axisLineColor = 'rgba(255, 255, 255, .2)';
 Chart.defaults.global.defaultFontColor = graphFontColor;
@@ -14,6 +14,8 @@ var total = Array(data.prefs[0].patients.length);
 total.fill(0);
 var motarity = Array(data.prefs[0].motarity.length);
 motarity.fill(0);
+var wholeJapan = [];
+var wholeJapanPerPopulation = [];
 data.prefs.forEach(pref => {
     var slice = pref.patients.slice(-3);
 
@@ -24,18 +26,21 @@ data.prefs.forEach(pref => {
 
     // map data
     var pre = slice[0];
-    var post = slice[2];
+    var latest = slice[2];
     var rate;
     const thresould = 1.5;
     if (pre === 0) {
-        if (post > 0) {
+        if (latest > 0) {
             rate = thresould;
         } else {
             rate = 1;
         }
     } else {
-        rate = post / pre;
+        rate = latest / pre;
     }
+
+    wholeJapan.push({pref: pref.pref, patient: latest});
+    wholeJapanPerPopulation.push({pref: pref.pref, patient: latest * 100 / pref.population});
 
     if (rate > thresould) {
         rate = 1;
@@ -53,7 +58,7 @@ data.prefs.forEach(pref => {
     });
 
     var motal = pref.motarity.slice(-1)[0];
-    [div, chart] = createChart(pref.pref, pref.dates, post, motal, pref.patients, pref.motarity, true);
+    [div, chart] = createChart(pref.pref, pref.dates, latest, motal, pref.patients, pref.motarity, true);
     row.append(div);
     charts.push(chart);
     ++x;
@@ -78,13 +83,31 @@ $("#map").japanMap({
     movesIslands: true,
     height: 300
 });
+
+wholeJapan.sort((a, b) => b.patient - a.patient);
+wholeJapanPerPopulation.sort((a, b) => b.patient - a.patient);
+
+var wholeJapanPrefs = [];
+var wholeJapanPatients = [];
+wholeJapan.forEach(p => {
+    wholeJapanPrefs.push(p.pref);
+    wholeJapanPatients.push(p.patient);
+});
+
+wholeJapanPopPrefs = [];
+wholeJapanPopPatients = [];
+wholeJapanPerPopulation.forEach(p => {
+    wholeJapanPopPrefs.push(p.pref);
+    wholeJapanPopPatients.push(Math.round(p.patient * 10) / 10);
+});
+
 var prefsChart = new Chart(document.getElementById("bar").getContext("2d"), {
     type: 'bar',
     data: {
-        labels: latest.prefs,
+        labels: wholeJapanPrefs,
         datasets: [{
                 label: "感染者数",
-                data: latest.patients,
+                data: wholeJapanPatients,
                 backgroundColor: "rgba(0, 255, 0, 0.5)"
         }]
     },
@@ -114,7 +137,23 @@ var prefsChart = new Chart(document.getElementById("bar").getContext("2d"), {
     }
 });
 
+$('input[name="population"]:radio').change(populationChanged);
+
 typeChanged();
+populationChanged();
+
+function populationChanged() {
+    if ($('input[name="population"]:checked').val() === '2') {
+        prefsChart.data.labels = wholeJapanPopPrefs;
+        prefsChart.data.datasets[0].data = wholeJapanPopPatients;
+        $('#bar-title').text("10万人あたり感染者数");
+    } else {
+        prefsChart.data.labels = wholeJapanPrefs;
+        prefsChart.data.datasets[0].data = wholeJapanPatients;
+        $('#bar-title').text("感染者数");
+    }
+    prefsChart.update();
+}
 
 function typeChanged(){
     if ($('input[name="calc"]:checked').val() === '2') {
