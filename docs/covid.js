@@ -178,9 +178,15 @@ function typeChanged(){
         switch (sel) {
             case '1':
                 ch.data.datasets = [ch.data.datapool[0 + offset], ch.data.datapool[1 + offset]];
+                if (offset === 2) {
+                    ch.data.datasets.push(ch.data.datapool[5]);
+                }
                 break;
             case '2':
                 ch.data.datasets = [ch.data.datapool[0 + offset]];
+                if (offset === 2) {
+                    ch.data.datasets.push(ch.data.datapool[5]);
+                }
                 break;
             case '3':
                 ch.data.datasets = [ch.data.datapool[1 + offset]];
@@ -250,6 +256,7 @@ function createChart(name, dates, infect, motal, patients, motarity, pref) {
     var patdif = new Array();
     var deathdif = new Array();
     var rateInWeek = new Array();
+    var patavg = [];
     for (var i = 1; i < patients.length; ++i) {
         patdif.push(Math.max(patients[i] - patients[i - 1], 0));
         if (i <= 12) {
@@ -264,6 +271,8 @@ function createChart(name, dates, infect, motal, patients, motarity, pref) {
                 rateInWeek.push(0);
             }
         }
+        var min = Math.max(0, i - 7);
+        patavg.push(Math.max(0, patients[i] - patients[min]) / (i - min));
     }
     var chart = new Chart(ctx, {
        type: 'bar',
@@ -303,9 +312,18 @@ function createChart(name, dates, infect, motal, patients, motarity, pref) {
                    label: "増加率",
                    data: rateInWeek,
                    borderColor: "rgba(200, 255, 200, 0.8)",
-                   backgroundColor: "rgba(255,53,51,0)",
+                   fill: false,
                    pointRadius: 0,
                    pointHitRadius: 3
+                },
+                {
+                    type: 'line',
+                    label: "移動平均",
+                    data: patavg,
+                    borderColor: "rgba(225, 120, 255, 0.4)",
+                    fill: false,
+                    pointRadius: 0,
+                    pointHitRadius: 0
                 }
            ]
        },
