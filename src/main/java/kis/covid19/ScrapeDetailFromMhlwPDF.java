@@ -53,24 +53,28 @@ public class ScrapeDetailFromMhlwPDF {
             var stripper = new PDFTextStripper();
             var text = stripper.getText(doc);
             System.out.println(text);
-            var daypat = Pattern.compile("([０-９0-9]+)月([０-９0-9]+)日");
-            var daymat = daypat.matcher(text);
-            if (!daymat.find()) {
-                throw new IllegalArgumentException("no date on " + url);
-            }
-            LocalDate date = LocalDate.now()
-                    .withMonth(Integer.parseInt(daymat.group(1)))
-                    .withDayOfMonth(Integer.parseInt(daymat.group(2)))
-                    .plusDays(1);
-            System.out.println(date);
-            var pat = Pattern.compile("(\\S+)\\s+(\\d+)\\s*?");
-            var data = text.lines()
-                    .filter(line -> pat.matcher(line).find())
-                    .map(line -> line.split("\\s+"))
-                    .map(ar -> new CreateData.Pref(ar[0], ar[ar.length - 9], 
-                            ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
-                    .collect(Collectors.toUnmodifiableList());
-            PrefJsonProc.writeJson(date, data);
+            writeJson(text, url);
         }
+    }
+
+    static void writeJson(String text, String url) throws IOException, IllegalArgumentException, NumberFormatException {
+        var daypat = Pattern.compile("([０-９0-9]+)月([０-９0-9]+)日");
+        var daymat = daypat.matcher(text);
+        if (!daymat.find()) {
+            throw new IllegalArgumentException("no date on " + url);
+        }
+        LocalDate date = LocalDate.now()
+                .withMonth(Integer.parseInt(daymat.group(1)))
+                .withDayOfMonth(Integer.parseInt(daymat.group(2)))
+                .plusDays(1);
+        System.out.println(date);
+        var pat = Pattern.compile("(\\S+)\\s+(\\d+)\\s*?");
+        var data = text.lines()
+                .filter(line -> pat.matcher(line).find())
+                .map(line -> line.split("\\s+"))
+                .map(ar -> new CreateData.Pref(ar[0], ar[ar.length - 9],
+                        ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
+                .collect(Collectors.toUnmodifiableList());
+        PrefJsonProc.writeJson(date, data);
     }
 }
