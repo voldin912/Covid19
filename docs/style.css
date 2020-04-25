@@ -1,0 +1,90 @@
+body {
+    background-color: #303080;
+    color: #f0f0ff;
+}
+h2 {
+    font-size: 1.2rem;
+}
+.base {
+    padding: 10px 20px;
+}
+.signature {
+    font-size: small;
+    color: #aae;
+}
+.control {
+
+}
+.control-label {
+    margin-bottom: .1rem;
+    font-size: small;
+    font-weight: bold;
+    color: #aae;
+}
+.description {
+    font-size: small;
+    color: #aae;
+}
+.map-chart {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+}
+.map-description {
+    font-size: small;
+    color: #aae;
+}
+.bar-chart {
+    display: inline-block;
+    max-width: 550px;
+    max-height: 300px;
+    min-width: 550px;
+    min-height: 300px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5px;
+    vertical-align: top;
+}
+.pref-charts {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 3px 4px
+}
+.tableRow {
+    display: table-row;
+}
+.chartCell {
+    max-width: 210px;
+    max-height: 200px;
+    min-width: 210px;
+    min-height: 200px;
+    display: table-cell;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+.pref-name {
+    font-weight: bold;
+}
+.value-label {
+    font-size: small;
+    color: #ccf;
+}
+.value {
+    font-weight: bold;
+    color: #ccf;
+}
+.rate-label {
+    font-size: small;
+    color: #ccf;
+}
+.rate-value {
+    font-weight: bold;
+    font-size: small;
+    color: #ccf;
+}
+
