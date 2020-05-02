@@ -31,6 +31,16 @@ h2 {
     border-radius: 4px;
     padding: 10px;
 }
+#map-message {
+    display: none;
+    position: absolute;
+}
+#map-message pre{
+    margin: 0px;
+    font-size: small;
+    color: #aae;
+    line-height: 1.2;
+}
 .map-description {
     font-size: small;
     color: #aae;

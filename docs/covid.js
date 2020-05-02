@@ -54,7 +54,8 @@ data.prefs.forEach(pref => {
         code: pref.code,
         jp: pref.pref,
         color: "rgba(" + Math.floor(255 * rate) + "," + Math.floor(255 * (1-rate)) + ",0,.8)",
-        prefectures: [pref.code]
+        prefectures: [pref.code],
+        pref: pref
     });
 
     var motal = pref.motarity.slice(-1)[0];
@@ -78,10 +79,32 @@ var mot = motarity.slice(-1)[0];
 charts.push(chart);
 firstrow.prepend(div);
 
+var onHover = function(data){
+    var dates = data.area.pref.dates.slice(-4);
+    var patients = data.area.pref.patients.slice(-4);
+    
+    var text = `
+${data.name}
+${dates[1]}: ${patients[1] - patients[0]}人
+${dates[2]}: ${patients[2] - patients[1]}人
+${dates[3]}: ${patients[3] - patients[2]}人
+`.trim();
+
+    var map = $("#map");
+    var message = $("#map-message");
+    
+    message.show()
+        .empty()
+        .append($("<pre>").text(text))
+        .css("left", map.position().left + map.width() - message.width() - 5)
+        .css("top", map.position().top + map.height() - message.height() - 8);
+}
+
 $("#map").japanMap({
     areas: areas,
     movesIslands: true,
-    height: 300
+    height: 300,
+    onHover: onHover
 });
 
 wholeJapan.sort((a, b) => b.patient - a.patient);
