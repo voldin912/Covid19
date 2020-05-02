@@ -61,6 +61,7 @@ public class CreateData {
         int population;
         List<Integer> patients;
         List<Integer> motarity;
+        List<Integer> hospitalizations;
         List<String> dates;
         
         ChartPref(String code, String pref, String population) {
@@ -70,6 +71,7 @@ public class CreateData {
             patients = new ArrayList<>();
             dates = new ArrayList<>();
             motarity = new ArrayList<>();
+            hospitalizations = new ArrayList<>();
         }
     }
     
@@ -114,6 +116,7 @@ public class CreateData {
                         p.dates.add(date.toString());
                         p.patients.add(patients.getOrDefault(p.pref, zero).patients);
                         p.motarity.add(patients.getOrDefault(p.pref, zero).mortality);
+                        p.hospitalizations.add(patients.getOrDefault(p.pref, zero).hospitalizations);
                     }
                     prefs.lastUpdate = date.toString();
                   } catch (IOException ex) {
