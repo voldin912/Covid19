@@ -72,6 +72,7 @@ public class ScrapeDetailFromMhlwPDF {
         var data = text.lines()
                 .filter(line -> pat.matcher(line).find())
                 .map(line -> line.split("\\s+"))
+                .filter(ar -> ar.length >= 9)
                 .map(ar -> ar.length == 9 ? 
                         new CreateData.Pref(ar[0], ar[ar.length - 8],
                             ar[ar.length - 5], ar[ar.length - 3], ar[ar.length - 2]) :
