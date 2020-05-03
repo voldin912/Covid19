@@ -1,0 +1,298 @@
+{
+  "lastupdate" : "2020-05-03",
+  "prefList" : [ {
+    "pref" : "埼玉県",
+    "patients" : 878,
+    "hospitalizations" : 809,
+    "discharges" : 52,
+    "mortality" : 17
+  }, {
+    "pref" : "千葉県",
+    "patients" : 823,
+    "hospitalizations" : 693,
+    "discharges" : 105,
+    "mortality" : 25
+  }, {
+    "pref" : "東京都",
+    "patients" : 4491,
+    "hospitalizations" : 2786,
+    "discharges" : 59,
+    "mortality" : 141
+  }, {
+    "pref" : "神奈川県",
+    "patients" : 1060,
+    "hospitalizations" : 850,
+    "discharges" : 177,
+    "mortality" : 33
+  }, {
+    "pref" : "大阪府",
+    "patients" : 1658,
+    "hospitalizations" : 1056,
+    "discharges" : 557,
+    "mortality" : 45
+  }, {
+    "pref" : "兵庫県",
+    "patients" : 654,
+    "hospitalizations" : 550,
+    "discharges" : 86,
+    "mortality" : 18
+  }, {
+    "pref" : "福岡県",
+    "patients" : 648,
+    "hospitalizations" : 460,
+    "discharges" : 171,
+    "mortality" : 17
+  }, {
+    "pref" : "北海道",
+    "patients" : 823,
+    "hospitalizations" : 546,
+    "discharges" : 248,
+    "mortality" : 29
+  }, {
+    "pref" : "茨城県",
+    "patients" : 165,
+    "hospitalizations" : 120,
+    "discharges" : 38,
+    "mortality" : 7
+  }, {
+    "pref" : "石川県",
+    "patients" : 260,
+    "hospitalizations" : 224,
+    "discharges" : 23,
+    "mortality" : 13
+  }, {
+    "pref" : "岐阜県",
+    "patients" : 150,
+    "hospitalizations" : 65,
+    "discharges" : 79,
+    "mortality" : 6
+  }, {
+    "pref" : "愛知県",
+    "patients" : 491,
+    "hospitalizations" : 383,
+    "discharges" : 75,
+    "mortality" : 33
+  }, {
+    "pref" : "京都府",
+    "patients" : 328,
+    "hospitalizations" : 149,
+    "discharges" : 168,
+    "mortality" : 11
+  }, {
+    "pref" : "青森県",
+    "patients" : 26,
+    "hospitalizations" : 12,
+    "discharges" : 14,
+    "mortality" : 0
+  }, {
+    "pref" : "岩手県",
+    "patients" : 0,
+    "hospitalizations" : 0,
+    "discharges" : 0,
+    "mortality" : 0
+  }, {
+    "pref" : "宮城県",
+    "patients" : 88,
+    "hospitalizations" : 27,
+    "discharges" : 61,
+    "mortality" : 0
+  }, {
+    "pref" : "秋田県",
+    "patients" : 16,
+    "hospitalizations" : 3,
+    "discharges" : 13,
+    "mortality" : 0
+  }, {
+    "pref" : "山形県",
+    "patients" : 68,
+    "hospitalizations" : 18,
+    "discharges" : 50,
+    "mortality" : 0
+  }, {
+    "pref" : "福島県",
+    "patients" : 75,
+    "hospitalizations" : 56,
+    "discharges" : 19,
+    "mortality" : 0
+  }, {
+    "pref" : "栃木県",
+    "patients" : 54,
+    "hospitalizations" : 38,
+    "discharges" : 16,
+    "mortality" : 0
+  }, {
+    "pref" : "群馬県",
+    "patients" : 146,
+    "hospitalizations" : 116,
+    "discharges" : 15,
+    "mortality" : 15
+  }, {
+    "pref" : "新潟県",
+    "patients" : 77,
+    "hospitalizations" : 45,
+    "discharges" : 32,
+    "mortality" : 0
+  }, {
+    "pref" : "富山県",
+    "patients" : 209,
+    "hospitalizations" : 162,
+    "discharges" : 38,
+    "mortality" : 9
+  }, {
+    "pref" : "福井県",
+    "patients" : 122,
+    "hospitalizations" : 39,
+    "discharges" : 75,
+    "mortality" : 8
+  }, {
+    "pref" : "山梨県",
+    "patients" : 55,
+    "hospitalizations" : 26,
+    "discharges" : 29,
+    "mortality" : 0
+  }, {
+    "pref" : "長野県",
+    "patients" : 69,
+    "hospitalizations" : 46,
+    "discharges" : 23,
+    "mortality" : 0
+  }, {
+    "pref" : "静岡県",
+    "patients" : 73,
+    "hospitalizations" : 48,
+    "discharges" : 24,
+    "mortality" : 1
+  }, {
+    "pref" : "三重県",
+    "patients" : 45,
+    "hospitalizations" : 25,
+    "discharges" : 19,
+    "mortality" : 1
+  }, {
+    "pref" : "滋賀県",
+    "patients" : 96,
+    "hospitalizations" : 60,
+    "discharges" : 35,
+    "mortality" : 1
+  }, {
+    "pref" : "奈良県",
+    "patients" : 86,
+    "hospitalizations" : 47,
+    "discharges" : 38,
+    "mortality" : 1
+  }, {
+    "pref" : "和歌山県",
+    "patients" : 62,
+    "hospitalizations" : 29,
+    "discharges" : 31,
+    "mortality" : 2
+  }, {
+    "pref" : "鳥取県",
+    "patients" : 3,
+    "hospitalizations" : 2,
+    "discharges" : 1,
+    "mortality" : 0
+  }, {
+    "pref" : "島根県",
+    "patients" : 23,
+    "hospitalizations" : 16,
+    "discharges" : 7,
+    "mortality" : 0
+  }, {
+    "pref" : "岡山県",
+    "patients" : 23,
+    "hospitalizations" : 13,
+    "discharges" : 10,
+    "mortality" : 0
+  }, {
+    "pref" : "広島県",
+    "patients" : 161,
+    "hospitalizations" : 130,
+    "discharges" : 29,
+    "mortality" : 2
+  }, {
+    "pref" : "山口県",
+    "patients" : 34,
+    "hospitalizations" : 10,
+    "discharges" : 24,
+    "mortality" : 0
+  }, {
+    "pref" : "徳島県",
+    "patients" : 5,
+    "hospitalizations" : 1,
+    "discharges" : 3,
+    "mortality" : 1
+  }, {
+    "pref" : "香川県",
+    "patients" : 28,
+    "hospitalizations" : 21,
+    "discharges" : 7,
+    "mortality" : 0
+  }, {
+    "pref" : "愛媛県",
+    "patients" : 47,
+    "hospitalizations" : 17,
+    "discharges" : 27,
+    "mortality" : 3
+  }, {
+    "pref" : "高知県",
+    "patients" : 74,
+    "hospitalizations" : 22,
+    "discharges" : 49,
+    "mortality" : 3
+  }, {
+    "pref" : "佐賀県",
+    "patients" : 42,
+    "hospitalizations" : 35,
+    "discharges" : 7,
+    "mortality" : 0
+  }, {
+    "pref" : "長崎県",
+    "patients" : 17,
+    "hospitalizations" : 7,
+    "discharges" : 9,
+    "mortality" : 1
+  }, {
+    "pref" : "熊本県",
+    "patients" : 47,
+    "hospitalizations" : 33,
+    "discharges" : 13,
+    "mortality" : 1
+  }, {
+    "pref" : "大分県",
+    "patients" : 60,
+    "hospitalizations" : 28,
+    "discharges" : 31,
+    "mortality" : 1
+  }, {
+    "pref" : "宮崎県",
+    "patients" : 17,
+    "hospitalizations" : 6,
+    "discharges" : 11,
+    "mortality" : 0
+  }, {
+    "pref" : "鹿児島県",
+    "patients" : 10,
+    "hospitalizations" : 6,
+    "discharges" : 4,
+    "mortality" : 0
+  }, {
+    "pref" : "沖縄県",
+    "patients" : 142,
+    "hospitalizations" : 114,
+    "discharges" : 24,
+    "mortality" : 4
+  }, {
+    "pref" : "その他",
+    "patients" : 148,
+    "hospitalizations" : 148,
+    "discharges" : 0,
+    "mortality" : 0
+  }, {
+    "pref" : "総計",
+    "patients" : 14677,
+    "hospitalizations" : 11724,
+    "discharges" : 2626,
+    "mortality" : 327
+  } ]
+}
