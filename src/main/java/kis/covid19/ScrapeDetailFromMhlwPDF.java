@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -72,6 +73,7 @@ public class ScrapeDetailFromMhlwPDF {
         var data = text.lines()
                 .filter(line -> pat.matcher(line).find())
                 .map(line -> line.split("\\s+"))
+                .map(ar -> ar[0].matches("\\d+") ? Arrays.copyOfRange(ar, 1, ar.length) : ar)
                 .filter(ar -> ar.length >= 9)
                 .map(ar -> ar.length == 9 ? 
                         new CreateData.Pref(ar[0], ar[ar.length - 8],

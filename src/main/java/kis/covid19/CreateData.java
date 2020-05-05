@@ -35,10 +35,10 @@ public class CreateData {
 
         public Pref(String pref, String patients, String hospitalizations, String discharges, String mortality) {
             this.pref = pref;
-            this.patients = Integer.parseInt(patients);
-            this.hospitalizations = Integer.parseInt(hospitalizations);
-            this.discharges = Integer.parseInt(discharges);
-            this.mortality = Integer.parseInt(mortality);
+            this.patients = Integer.parseInt(patients.replaceAll("\\D", ""));
+            this.hospitalizations = Integer.parseInt(hospitalizations.replaceAll("\\D", ""));
+            this.discharges = Integer.parseInt(discharges.replaceAll("\\D", ""));;
+            this.mortality = Integer.parseInt(mortality.replaceAll("\\D", ""));
         }
     }
     

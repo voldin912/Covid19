@@ -24,7 +24,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_11146.html"; // 5/1
         // var url = "https://www.mhlw.go.jp/content/10906000/000627448.pdf"; //5/2
         // var url = "https://www.mhlw.go.jp/content/10906000/000627489.pdf"; // 5/3
-        var url = "https://www.mhlw.go.jp/content/10906000/000627542.pdf"; // 5/4
+        // var url = "https://www.mhlw.go.jp/content/10906000/000627542.pdf"; // 5/4
+        var url = "https://www.mhlw.go.jp/content/10906000/000627581.pdf"; // 5/5
         if (url.endsWith(".pdf")) {
             ScrapeDetailFromMhlwPDF.main(url);
         } else {
