@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +41,30 @@ public class PrefJsonProc {
         }        
     }
     
+    static ObjectMapper createMapper() {
+        var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
+    }
+    
+    static CreateData.InputPref readJson(Path path) {
+        var mapper = createMapper();
+        try(var is = Files.newInputStream(path)) {
+            CreateData.InputPref data = mapper.readValue(is, 
+                    CreateData.InputPref.class);
+            return data;
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+    
+    static String jsonName(LocalDate date) {
+        return String.format("data/prefs%s.json", date);
+    }
+    
     static void writeJson(LocalDate date, List<CreateData.Pref> prefs) throws IOException {
-        try (var pw = new PrintWriter(String.format("data/prefs%s.json", date), "utf-8")) {
-            var mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
+        try (var pw = new PrintWriter(jsonName(date), "utf-8")) {
+            var mapper = createMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
             var data = new CreateData.InputPref();

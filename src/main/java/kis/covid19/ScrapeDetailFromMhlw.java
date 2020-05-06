@@ -23,6 +23,10 @@ public class ScrapeDetailFromMhlw {
         // var url = "https://www.mhlw.go.jp/stf/newpage_10668.html"; // 4/2
         // var url = "https://www.mhlw.go.jp/stf/newpage_10688.html"; // 4/3
         var url = args[0];
+        scrape(url);
+    }
+    
+    static LocalDate scrape(String url) throws IOException {
         var conn = Jsoup.connect(url);
         var doc = conn.get();
 
@@ -44,5 +48,6 @@ public class ScrapeDetailFromMhlw {
                 .collect(Collectors.toUnmodifiableList());
                         
         PrefJsonProc.writeJson(date, data);
+        return date;
     }
 }

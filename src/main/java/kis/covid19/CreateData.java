@@ -33,12 +33,16 @@ public class CreateData {
         int discharges;
         int mortality;
 
-        public Pref(String pref, String patients, String hospitalizations, String discharges, String mortality) {
+        public Pref(String pref, int patients, int hospitalizations, int discharges, int mortality) {
             this.pref = pref;
-            this.patients = Integer.parseInt(patients.replaceAll("\\D", ""));
-            this.hospitalizations = Integer.parseInt(hospitalizations.replaceAll("\\D", ""));
-            this.discharges = Integer.parseInt(discharges.replaceAll("\\D", ""));;
-            this.mortality = Integer.parseInt(mortality.replaceAll("\\D", ""));
+            this.patients = patients;
+            this.hospitalizations = hospitalizations;
+            this.discharges = discharges;
+            this.mortality = mortality;
+        }
+        
+        public Pref(String pref, String patients, String hospitalizations, String discharges, String mortality) {
+            this(pref, Util.parseInt(patients), Util.parseInt(hospitalizations), Util.parseInt(discharges), Util.parseInt(mortality));
         }
     }
     
@@ -82,19 +86,14 @@ public class CreateData {
                 .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
 
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-
         Stream.concat(
                 Stream.iterate(LocalDate.of(2020,3,8), d -> d.plusDays(1))
-                      .map(d -> Path.of(String.format("data/prefs%s.json", d)))
+                      .map(d -> Path.of(PrefJsonProc.jsonName(d)))
                       .takeWhile(Files::exists),
                 // Stream.of(Path.of("data/nhk/input-pref2020-04-03.json")))
                 Stream.empty())
               .forEach(path -> {
-                  try(var is = Files.newInputStream(path)) {
-                    InputPref data = mapper.readValue(is, 
-                            InputPref.class);
+                    InputPref data = PrefJsonProc.readJson(path);
 
                     var pat = Pattern.compile("(\\d+-)?(\\d{1,2})[/-](\\d{1,2})");
                     var mat = pat.matcher(data.lastupdate);
@@ -119,11 +118,9 @@ public class CreateData {
                         p.hospitalizations.add(patients.getOrDefault(p.pref, zero).hospitalizations);
                     }
                     prefs.lastUpdate = date.toString();
-                  } catch (IOException ex) {
-                      throw new UncheckedIOException(ex);
-                  }
               });
         
+        var mapper = PrefJsonProc.createMapper();
         try (var bw = Files.newBufferedWriter(Path.of("docs/prefs.js"));
              var pw = new PrintWriter(bw)) {
             pw.printf("let data = %s;%n", mapper.writeValueAsString(prefs));

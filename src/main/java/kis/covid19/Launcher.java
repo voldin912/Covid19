@@ -1,6 +1,7 @@
 package kis.covid19;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  *
@@ -25,12 +26,19 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/content/10906000/000627448.pdf"; //5/2
         // var url = "https://www.mhlw.go.jp/content/10906000/000627489.pdf"; // 5/3
         // var url = "https://www.mhlw.go.jp/content/10906000/000627542.pdf"; // 5/4
-        var url = "https://www.mhlw.go.jp/content/10906000/000627581.pdf"; // 5/5
+        // var url = "https://www.mhlw.go.jp/content/10906000/000627581.pdf"; // 5/5
+        var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/825/20200505.pdf"; // 5/5
+        var url= "https://www.mhlw.go.jp/content/10906000/000627630.pdf"; // 5/6
+        
+        // var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/826/2020050601.pdf"; // 5/6
+        
+        LocalDate date;
         if (url.endsWith(".pdf")) {
-            ScrapeDetailFromMhlwPDF.main(url);
+            date = ScrapeDetailFromMhlwPDF.scrape(url);
         } else {
-            ScrapeDetailFromMhlw.main(url);
+            date = ScrapeDetailFromMhlw.scrape(url);
         }
+        ScrapeFromTokyo.amendTokyo(tokyo, date);
         CreateData.main(args);
     }
 }

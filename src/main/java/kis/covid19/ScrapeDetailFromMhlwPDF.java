@@ -42,7 +42,10 @@ public class ScrapeDetailFromMhlwPDF {
             throw new IllegalArgumentException("need url");
         }
         var url = args[0];
-
+        scrape(url);
+    }
+    
+    static LocalDate scrape(String url) throws IOException, InterruptedException {
         var client = HttpClient.newHttpClient();
         var req = HttpRequest.newBuilder(URI.create(url))
                 .GET()
@@ -54,15 +57,17 @@ public class ScrapeDetailFromMhlwPDF {
             var stripper = new PDFTextStripper();
             var text = stripper.getText(doc);
             System.out.println(text);
-            writeJson(text, url);
+            return writeJson(text);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Wrong data in " + url, ex);
         }
     }
 
-    static void writeJson(String text, String url) throws IOException, IllegalArgumentException, NumberFormatException {
+    static LocalDate writeJson(String text) throws IOException, IllegalArgumentException {
         var daypat = Pattern.compile("([０-９0-9]+)月([０-９0-9]+)日");
         var daymat = daypat.matcher(text);
         if (!daymat.find()) {
-            throw new IllegalArgumentException("no date on " + url);
+            throw new IllegalArgumentException();
         }
         LocalDate date = LocalDate.now()
                 .withMonth(Integer.parseInt(daymat.group(1)))
@@ -82,5 +87,6 @@ public class ScrapeDetailFromMhlwPDF {
                             ar[ar.length - 6], ar[ar.length - 4], ar[ar.length - 2]))
                 .collect(Collectors.toUnmodifiableList());
         PrefJsonProc.writeJson(date, data);
+        return date;
     }
 }

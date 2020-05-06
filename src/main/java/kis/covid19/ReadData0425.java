@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class ReadData0425 {
     public static void main(String[] args) throws IOException {
-        ScrapeDetailFromMhlwPDF.writeJson(data, "data");
+        ScrapeDetailFromMhlwPDF.writeJson(data);
     }
     
     static String data = 
