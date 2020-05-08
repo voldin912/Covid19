@@ -29,9 +29,11 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/content/10906000/000627581.pdf"; // 5/5
         // var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/825/20200505.pdf"; // 5/5
         // var url= "https://www.mhlw.go.jp/content/10906000/000627630.pdf"; // 5/6
-        var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/826/2020050601.pdf"; // 5/6
-        var url = "https://www.mhlw.go.jp/stf/newpage_11189.html"; // 5/7
-        // var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/834/2020050701.pdf"; // 5/7
+        //var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/826/2020050601.pdf"; // 5/6
+        // var url = "https://www.mhlw.go.jp/stf/newpage_11189.html"; // 5/7
+        var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/834/2020050701.pdf"; // 5/7
+        var url = "https://www.mhlw.go.jp/stf/newpage_11222.html"; // 5/8
+        //var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/842/2020050801.pdf"; // 5/8
 
         LocalDate date;
         if (url.endsWith(".pdf")) {
