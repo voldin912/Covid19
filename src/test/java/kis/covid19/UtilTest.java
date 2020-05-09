@@ -23,4 +23,11 @@ public class UtilTest {
         assertEquals("01234567890123456789", Util.zenDigitToHan("０１２３４５６７８９０１２３４５６７８９"));
     }
     
+    @Test
+    public void test都道府県をつける() {
+        assertEquals("東京都", Util.addPrefSuffix("東京"));
+        assertEquals("京都府", Util.addPrefSuffix("京都"));
+        assertEquals("北海道", Util.addPrefSuffix("北海道"));
+        assertEquals("青森県", Util.addPrefSuffix("青森"));
+    }
 }

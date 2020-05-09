@@ -32,15 +32,22 @@ public class CreateData {
         int hospitalizations;
         int discharges;
         int mortality;
+        int pcr;
+        int severe;
 
-        public Pref(String pref, int patients, int hospitalizations, int discharges, int mortality) {
+        public Pref(String pref, int patients, int hospitalizations, int discharges, int mortality, int severe, int pcr) {
             this.pref = pref;
             this.patients = patients;
             this.hospitalizations = hospitalizations;
             this.discharges = discharges;
             this.mortality = mortality;
+            this.severe = severe;
+            this.pcr = pcr;
         }
         
+        public Pref(String pref, int patients, int hospitalizations, int discharges, int mortality) {
+            this(pref, patients, hospitalizations, discharges, mortality, 0, 0);
+        }
         public Pref(String pref, String patients, String hospitalizations, String discharges, String mortality) {
             this(pref, Util.parseInt(patients), Util.parseInt(hospitalizations), Util.parseInt(discharges), Util.parseInt(mortality));
         }

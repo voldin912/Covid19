@@ -1,23 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kis.covid19;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.chrono.JapaneseDate;
 import java.time.chrono.JapaneseEra;
 import java.util.regex.Pattern;
 import kis.covid19.CreateData.Pref;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 /**
  *
@@ -50,16 +39,9 @@ public class ScrapeFromTokyo {
     }
 
     static Pref read(String url) throws IOException, InterruptedException {
-        var client = HttpClient.newHttpClient();
-        var req = HttpRequest.newBuilder(URI.create(url)).GET().build();
-        var res = client.send(req, BodyHandlers.ofInputStream());
-        try (var input = res.body();
-             var doc = PDDocument.load(input)) {
-            var stripper = new PDFTextStripper();
-            var text = stripper.getText(doc);
-            System.out.println(text);
-            return readData(text);
-        }
+        var text = Util.readPdf(url);
+        System.out.println(text);
+        return readData(text);
     }
     
     static Pref readData(String text) {
@@ -84,18 +66,5 @@ public class ScrapeFromTokyo {
                 .skip(1)
                 .findFirst().get();
     }
-    static LocalDate readDate(String text) {
-        var pt = Pattern.compile("(\\d+)年(\\d+)月(\\d+)日");
-        var mat = pt.matcher(Util.zenDigitToHan(text));
-        if (!mat.find()) {
-            throw new IllegalArgumentException("Can't find a date");
-        }
-        var dt = JapaneseDate.of(JapaneseEra.REIWA, 
-                Integer.parseInt(mat.group(1)),
-                Integer.parseInt(mat.group(2)),
-                Integer.parseInt(mat.group(3)));
-        return LocalDate.from(dt);
-    }
-    
 
 }

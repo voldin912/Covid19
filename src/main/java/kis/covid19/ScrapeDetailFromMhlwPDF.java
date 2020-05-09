@@ -1,16 +1,10 @@
 package kis.covid19;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 /**
  *
@@ -46,16 +40,9 @@ public class ScrapeDetailFromMhlwPDF {
     }
     
     static LocalDate scrape(String url) throws IOException, InterruptedException {
-        var client = HttpClient.newHttpClient();
-        var req = HttpRequest.newBuilder(URI.create(url))
-                .GET()
-                .build();
-            var res = client.send(req, BodyHandlers.ofInputStream());
-        try (var is = res.body(); 
         // try (var is = Files.newInputStream(Path.of("data/nhk/pref4-4.pdf"));
-             var doc = PDDocument.load(is)) {
-            var stripper = new PDFTextStripper();
-            var text = stripper.getText(doc);
+        try  {
+            var text = Util.readPdf(url);
             System.out.println(text);
             return writeJson(text);
         } catch (IllegalArgumentException ex) {

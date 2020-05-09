@@ -37,7 +37,7 @@ public class ScrapeFromTokyoTest {
     }
     
     public void test日付読み込み() {
-        var date = ScrapeFromTokyo.readDate(text);
+        var date = Util.readReiwaDate(text);
         assertEquals(LocalDate.of(2020, 5, 5), date);
     }
     

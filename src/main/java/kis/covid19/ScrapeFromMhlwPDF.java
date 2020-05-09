@@ -1,17 +1,11 @@
 package kis.covid19;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 /**
  *
@@ -32,22 +26,13 @@ public class ScrapeFromMhlwPDF {
         var url = "https://www.mhlw.go.jp/content/10906000/000618979.pdf"; // 4/4
         var date = LocalDate.of(2020, 4, 4);
 
-        var client = HttpClient.newHttpClient();
-        var req = HttpRequest.newBuilder(URI.create(url))
-                .GET()
-                .build();
-        var res = client.send(req, BodyHandlers.ofInputStream());
-        try (var is = res.body(); 
-             var doc = PDDocument.load(is)) {
-            var stripper = new PDFTextStripper();
-            var text = stripper.getText(doc);
-            var pat = Pattern.compile("(\\S+)\\s+(\\d+)\\s*名?");
-            Map<String, Integer> data = text.lines()
-                    .map(pat::matcher)
-                    .filter(Matcher::find)
-                    .collect(Collectors.toUnmodifiableMap(mat -> mat.group(1),
-                            mat -> Integer.parseInt(mat.group(2))));
-            PrefJsonProc.writeJson(date, data);
-        }
+        var text = Util.readPdf(url);
+        var pat = Pattern.compile("(\\S+)\\s+(\\d+)\\s*名?");
+        Map<String, Integer> data = text.lines()
+                .map(pat::matcher)
+                .filter(Matcher::find)
+                .collect(Collectors.toUnmodifiableMap(mat -> mat.group(1),
+                        mat -> Integer.parseInt(mat.group(2))));
+        PrefJsonProc.writeJson(date, data);
     }
 }
