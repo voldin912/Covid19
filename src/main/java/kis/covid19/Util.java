@@ -18,6 +18,9 @@ import org.apache.pdfbox.text.PDFTextStripper;
  */
 public class Util {
     public static int parseInt(String text) {
+        if (text.equals("-")) {
+            return 0;
+        }
         return Integer.parseInt(text.replaceAll(",", ""));
     }
     

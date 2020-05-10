@@ -38,9 +38,11 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_11222.html"; // 5/8
 
         var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/842/2020050801.pdf"; // 5/8
-        var url = "https://www.mhlw.go.jp/content/10906000/000628667.pdf"; // 5/9
+        // var url = "https://www.mhlw.go.jp/content/10906000/000628667.pdf"; // 5/9
         // var tokyo = "https://www.bousai.metro.tokyo.lg.jp/_res/projects/default_project/_page_/001/007/846/2020050903.pdf"; // 5/9
 
+        var url = "https://www.mhlw.go.jp/content/10906000/000628697.pdf"; // 5/10
+        
         if (true) {
             // since 5/9
             ScrapeFromMhlwPDF2.scrape(url);

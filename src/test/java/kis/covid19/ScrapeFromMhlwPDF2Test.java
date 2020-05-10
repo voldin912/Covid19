@@ -49,6 +49,8 @@ public class ScrapeFromMhlwPDF2Test {
                 ScrapeFromMhlwPDF2.parsePref("東    京 4,810 12,990 2,503 78 2,136 171 0"));
         assertEquals(new Pref("青森県",27, 27-17, 17,0,0,728),
                 ScrapeFromMhlwPDF2.parsePref("青　  森 27 728 不明 不明 17 不明 10"));
+        assertEquals(new Pref("青森県",27, 27-17, 17,0,0,728),
+                ScrapeFromMhlwPDF2.parsePref("青　  森 27 728 - - 17 - 10"));
     }
     
     @Test
