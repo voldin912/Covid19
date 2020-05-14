@@ -18,6 +18,7 @@ motarity.fill(0);
 hospitalizations.fill(0);
 var wholeJapan = [];
 var wholeJapanPerPopulation = [];
+var wholePopulation = 0;
 data.prefs.forEach(pref => {
     var slice = pref.patients.slice(-3);
 
@@ -44,6 +45,7 @@ data.prefs.forEach(pref => {
 
     wholeJapan.push({pref: pref.pref, patient: latest});
     wholeJapanPerPopulation.push({pref: pref.pref, patient: latest * 100 / pref.population});
+    wholePopulation += pref.population;
 
     if (rate > thresould) {
         rate = 1;
@@ -61,7 +63,7 @@ data.prefs.forEach(pref => {
     });
 
     var motal = pref.motarity.slice(-1)[0];
-    [div, chart] = createChart(pref.pref, pref.dates, latest, motal, pref.patients, pref.hospitalizations, pref.motarity, true);
+    [div, chart] = createChart(pref.pref, pref.dates, latest, motal, pref.patients, pref.hospitalizations, pref.motarity, pref.population, true);
     row.append(div);
     charts.push(chart);
     ++x;
@@ -77,7 +79,7 @@ if (x > 0) {
 
 var post = total.slice(-1)[0];
 var mot = motarity.slice(-1)[0];
-[div, chart] = createChart("全国", data.prefs[0].dates, post, mot, total, hospitalizations, motarity, false);
+[div, chart] = createChart("全国", data.prefs[0].dates, post, mot, total, hospitalizations, motarity, wholePopulation, false);
 charts.push(chart);
 firstrow.prepend(div);
 
@@ -225,7 +227,7 @@ function addSpan(div, cls, text) {
     div.append(s);
 }
 
-function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, pref) {
+function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, population, pref) {
     var weekData = patients.slice(-8);
     var weekAgo = weekData[0];
     var rateText;
@@ -248,10 +250,15 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     var daily = weekData[7] - weekData[6];
     addSpan(rateDiv, "rate-value", rateText);
     addSpan(rateDiv, "rate-label", "倍/週");
-    addSpan(rateDiv, "rate-label", " 前日比: ");
+    addSpan(rateDiv, "rate-label", " 新規:");
     addSpan(rateDiv, "rate-value", daily);
+    addSpan(rateDiv, "rate-label", "(週");
+    addSpan(rateDiv, "rate-value", Math.round((weekData[7] - weekAgo) * 100 / population * 100) / 100);
+    addSpan(rateDiv, "rate-label", "人/10万");
+    /*
     addSpan(rateDiv, "rate-label", " (目標: ");
     addSpan(rateDiv, "rate-label", Math.round((weekData[7] * target / dailyTotal) * 10) / 10);
+     */
     addSpan(rateDiv, "rate-label", ")");
     div.append(rateDiv);
     var canv =  $('<canvas></canvas');
