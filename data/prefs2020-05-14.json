@@ -1,0 +1,396 @@
+{
+  "lastupdate" : "2020-05-14",
+  "prefList" : [ {
+    "pref" : "北海道",
+    "patients" : 979,
+    "hospitalizations" : 409,
+    "discharges" : 502,
+    "mortality" : 68,
+    "pcr" : 9406,
+    "severe" : 19
+  }, {
+    "pref" : "青森県",
+    "patients" : 27,
+    "hospitalizations" : 6,
+    "discharges" : 21,
+    "mortality" : 0,
+    "pcr" : 776,
+    "severe" : 0
+  }, {
+    "pref" : "岩手県",
+    "patients" : 0,
+    "hospitalizations" : 0,
+    "discharges" : 0,
+    "mortality" : 0,
+    "pcr" : 439,
+    "severe" : 0
+  }, {
+    "pref" : "宮城県",
+    "patients" : 88,
+    "hospitalizations" : 6,
+    "discharges" : 81,
+    "mortality" : 1,
+    "pcr" : 2371,
+    "severe" : 0
+  }, {
+    "pref" : "秋田県",
+    "patients" : 16,
+    "hospitalizations" : 1,
+    "discharges" : 15,
+    "mortality" : 0,
+    "pcr" : 898,
+    "severe" : 0
+  }, {
+    "pref" : "山形県",
+    "patients" : 69,
+    "hospitalizations" : 11,
+    "discharges" : 58,
+    "mortality" : 0,
+    "pcr" : 2514,
+    "severe" : 2
+  }, {
+    "pref" : "福島県",
+    "patients" : 81,
+    "hospitalizations" : 24,
+    "discharges" : 57,
+    "mortality" : 0,
+    "pcr" : 2708,
+    "severe" : 2
+  }, {
+    "pref" : "茨城県",
+    "patients" : 168,
+    "hospitalizations" : 65,
+    "discharges" : 94,
+    "mortality" : 9,
+    "pcr" : 4060,
+    "severe" : 2
+  }, {
+    "pref" : "栃木県",
+    "patients" : 57,
+    "hospitalizations" : 19,
+    "discharges" : 38,
+    "mortality" : 0,
+    "pcr" : 2642,
+    "severe" : 5
+  }, {
+    "pref" : "群馬県",
+    "patients" : 147,
+    "hospitalizations" : 53,
+    "discharges" : 76,
+    "mortality" : 18,
+    "pcr" : 3152,
+    "severe" : 2
+  }, {
+    "pref" : "埼玉県",
+    "patients" : 973,
+    "hospitalizations" : 255,
+    "discharges" : 674,
+    "mortality" : 44,
+    "pcr" : 14266,
+    "severe" : 9
+  }, {
+    "pref" : "千葉県",
+    "patients" : 888,
+    "hospitalizations" : 278,
+    "discharges" : 570,
+    "mortality" : 40,
+    "pcr" : 16804,
+    "severe" : 11
+  }, {
+    "pref" : "東京都",
+    "patients" : 4997,
+    "hospitalizations" : 1755,
+    "discharges" : 3039,
+    "mortality" : 203,
+    "pcr" : 13712,
+    "severe" : 52
+  }, {
+    "pref" : "神奈川県",
+    "patients" : 1203,
+    "hospitalizations" : 376,
+    "discharges" : 768,
+    "mortality" : 59,
+    "pcr" : 2992,
+    "severe" : 34
+  }, {
+    "pref" : "新潟県",
+    "patients" : 82,
+    "hospitalizations" : 31,
+    "discharges" : 51,
+    "mortality" : 0,
+    "pcr" : 3570,
+    "severe" : 0
+  }, {
+    "pref" : "富山県",
+    "patients" : 222,
+    "hospitalizations" : 84,
+    "discharges" : 122,
+    "mortality" : 16,
+    "pcr" : 2891,
+    "severe" : 2
+  }, {
+    "pref" : "石川県",
+    "patients" : 284,
+    "hospitalizations" : 113,
+    "discharges" : 152,
+    "mortality" : 19,
+    "pcr" : 2390,
+    "severe" : 3
+  }, {
+    "pref" : "福井県",
+    "patients" : 122,
+    "hospitalizations" : 16,
+    "discharges" : 98,
+    "mortality" : 8,
+    "pcr" : 2178,
+    "severe" : 2
+  }, {
+    "pref" : "山梨県",
+    "patients" : 57,
+    "hospitalizations" : 6,
+    "discharges" : 51,
+    "mortality" : 0,
+    "pcr" : 3108,
+    "severe" : 1
+  }, {
+    "pref" : "長野県",
+    "patients" : 76,
+    "hospitalizations" : 25,
+    "discharges" : 51,
+    "mortality" : 0,
+    "pcr" : 2247,
+    "severe" : 2
+  }, {
+    "pref" : "岐阜県",
+    "patients" : 150,
+    "hospitalizations" : 13,
+    "discharges" : 131,
+    "mortality" : 6,
+    "pcr" : 3578,
+    "severe" : 1
+  }, {
+    "pref" : "静岡県",
+    "patients" : 73,
+    "hospitalizations" : 12,
+    "discharges" : 60,
+    "mortality" : 1,
+    "pcr" : 3206,
+    "severe" : 2
+  }, {
+    "pref" : "愛知県",
+    "patients" : 496,
+    "hospitalizations" : 85,
+    "discharges" : 377,
+    "mortality" : 34,
+    "pcr" : 8492,
+    "severe" : 4
+  }, {
+    "pref" : "三重県",
+    "patients" : 45,
+    "hospitalizations" : 10,
+    "discharges" : 34,
+    "mortality" : 1,
+    "pcr" : 2163,
+    "severe" : 0
+  }, {
+    "pref" : "滋賀県",
+    "patients" : 97,
+    "hospitalizations" : 20,
+    "discharges" : 76,
+    "mortality" : 1,
+    "pcr" : 1490,
+    "severe" : 1
+  }, {
+    "pref" : "京都府",
+    "patients" : 356,
+    "hospitalizations" : 74,
+    "discharges" : 269,
+    "mortality" : 13,
+    "pcr" : 5961,
+    "severe" : 3
+  }, {
+    "pref" : "大阪府",
+    "patients" : 1750,
+    "hospitalizations" : 512,
+    "discharges" : 1176,
+    "mortality" : 62,
+    "pcr" : 17885,
+    "severe" : 45
+  }, {
+    "pref" : "兵庫県",
+    "patients" : 694,
+    "hospitalizations" : 138,
+    "discharges" : 521,
+    "mortality" : 35,
+    "pcr" : 9483,
+    "severe" : 21
+  }, {
+    "pref" : "奈良県",
+    "patients" : 90,
+    "hospitalizations" : 18,
+    "discharges" : 70,
+    "mortality" : 2,
+    "pcr" : 2383,
+    "severe" : 0
+  }, {
+    "pref" : "和歌山県",
+    "patients" : 63,
+    "hospitalizations" : 10,
+    "discharges" : 50,
+    "mortality" : 3,
+    "pcr" : 3424,
+    "severe" : 0
+  }, {
+    "pref" : "鳥取県",
+    "patients" : 3,
+    "hospitalizations" : 2,
+    "discharges" : 1,
+    "mortality" : 0,
+    "pcr" : 1198,
+    "severe" : 0
+  }, {
+    "pref" : "島根県",
+    "patients" : 24,
+    "hospitalizations" : 10,
+    "discharges" : 14,
+    "mortality" : 0,
+    "pcr" : 944,
+    "severe" : 1
+  }, {
+    "pref" : "岡山県",
+    "patients" : 25,
+    "hospitalizations" : 4,
+    "discharges" : 21,
+    "mortality" : 0,
+    "pcr" : 1434,
+    "severe" : 0
+  }, {
+    "pref" : "広島県",
+    "patients" : 165,
+    "hospitalizations" : 71,
+    "discharges" : 92,
+    "mortality" : 2,
+    "pcr" : 6181,
+    "severe" : 1
+  }, {
+    "pref" : "山口県",
+    "patients" : 37,
+    "hospitalizations" : 4,
+    "discharges" : 33,
+    "mortality" : 0,
+    "pcr" : 1557,
+    "severe" : 1
+  }, {
+    "pref" : "徳島県",
+    "patients" : 5,
+    "hospitalizations" : 0,
+    "discharges" : 4,
+    "mortality" : 1,
+    "pcr" : 635,
+    "severe" : 0
+  }, {
+    "pref" : "香川県",
+    "patients" : 28,
+    "hospitalizations" : 6,
+    "discharges" : 22,
+    "mortality" : 0,
+    "pcr" : 1894,
+    "severe" : 0
+  }, {
+    "pref" : "愛媛県",
+    "patients" : 51,
+    "hospitalizations" : 9,
+    "discharges" : 39,
+    "mortality" : 3,
+    "pcr" : 1305,
+    "severe" : 0
+  }, {
+    "pref" : "高知県",
+    "patients" : 74,
+    "hospitalizations" : 5,
+    "discharges" : 66,
+    "mortality" : 3,
+    "pcr" : 1604,
+    "severe" : 0
+  }, {
+    "pref" : "福岡県",
+    "patients" : 656,
+    "hospitalizations" : 138,
+    "discharges" : 494,
+    "mortality" : 24,
+    "pcr" : 11967,
+    "severe" : 11
+  }, {
+    "pref" : "佐賀県",
+    "patients" : 46,
+    "hospitalizations" : 19,
+    "discharges" : 27,
+    "mortality" : 0,
+    "pcr" : 1281,
+    "severe" : 0
+  }, {
+    "pref" : "長崎県",
+    "patients" : 17,
+    "hospitalizations" : 1,
+    "discharges" : 15,
+    "mortality" : 1,
+    "pcr" : 2430,
+    "severe" : 0
+  }, {
+    "pref" : "熊本県",
+    "patients" : 48,
+    "hospitalizations" : 20,
+    "discharges" : 25,
+    "mortality" : 3,
+    "pcr" : 3592,
+    "severe" : 2
+  }, {
+    "pref" : "大分県",
+    "patients" : 60,
+    "hospitalizations" : 4,
+    "discharges" : 55,
+    "mortality" : 1,
+    "pcr" : 3590,
+    "severe" : 0
+  }, {
+    "pref" : "宮崎県",
+    "patients" : 17,
+    "hospitalizations" : 5,
+    "discharges" : 12,
+    "mortality" : 0,
+    "pcr" : 1268,
+    "severe" : 0
+  }, {
+    "pref" : "鹿児島県",
+    "patients" : 11,
+    "hospitalizations" : 3,
+    "discharges" : 8,
+    "mortality" : 0,
+    "pcr" : 1516,
+    "severe" : 0
+  }, {
+    "pref" : "沖縄県",
+    "patients" : 142,
+    "hospitalizations" : 25,
+    "discharges" : 111,
+    "mortality" : 6,
+    "pcr" : 2608,
+    "severe" : 4
+  }, {
+    "pref" : "（その他）※3",
+    "patients" : 149,
+    "hospitalizations" : 149,
+    "discharges" : 0,
+    "mortality" : 0,
+    "pcr" : 623,
+    "severe" : 0
+  }, {
+    "pref" : "合計",
+    "patients" : 15908,
+    "hospitalizations" : 4900,
+    "discharges" : 10321,
+    "mortality" : 687,
+    "pcr" : 196816,
+    "severe" : 245
+  } ]
+}
