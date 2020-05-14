@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.chrono.JapaneseDate;
 import java.time.chrono.JapaneseEra;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 

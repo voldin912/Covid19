@@ -3,9 +3,6 @@ package kis.covid19;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.chrono.JapaneseDate;
-import java.time.chrono.JapaneseEra;
-import java.util.regex.Pattern;
 import kis.covid19.CreateData.Pref;
 
 /**
