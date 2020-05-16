@@ -230,12 +230,13 @@ function addSpan(div, cls, text) {
 function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, population, pref) {
     var weekData = patients.slice(-8);
     var weekAgo = weekData[0];
+    /*
     var rateText;
     if (weekAgo === 0) {
         rateText = "-";
     } else {
         rateText = (Math.round(infect / weekAgo * 100) / 100);
-    }
+    }*/
 
     var div = $('<div class="chartCell"></div>');
     var prefLabel = $('<div></div>');
@@ -248,18 +249,20 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     div.append(prefLabel);
     var rateDiv = $('<div></div>');
     var daily = weekData[7] - weekData[6];
+    /*
     addSpan(rateDiv, "rate-value", rateText);
     addSpan(rateDiv, "rate-label", "倍/週");
+    */
     addSpan(rateDiv, "rate-label", " 新規:");
     addSpan(rateDiv, "rate-value", daily);
-    addSpan(rateDiv, "rate-label", "(週");
+    addSpan(rateDiv, "rate-label", "人 週");
     addSpan(rateDiv, "rate-value", Math.round((weekData[7] - weekAgo) * 100 / population * 100) / 100);
     addSpan(rateDiv, "rate-label", "人/10万");
     /*
     addSpan(rateDiv, "rate-label", " (目標: ");
     addSpan(rateDiv, "rate-label", Math.round((weekData[7] * target / dailyTotal) * 10) / 10);
-     */
     addSpan(rateDiv, "rate-label", ")");
+     */
     div.append(rateDiv);
     var canv =  $('<canvas></canvas');
     div.append(canv);
