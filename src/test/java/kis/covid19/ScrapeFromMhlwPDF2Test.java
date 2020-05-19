@@ -30,7 +30,7 @@ public class ScrapeFromMhlwPDF2Test {
     @Test
     public void testParseLine() {
         assertArrayEquals(new String[]{"兵庫","681","8654","194","24","454","32","1"},
-                ScrapeFromMhlwPDF2.parseLine("兵    庫 681 8,654 194 24 454 32 1"));
+                ScrapeFromMhlwPDF2.parseLine("兵    庫 681 8,654   194 24 454 32 1"));
         assertArrayEquals(new String[]{"長野","74","2054","37","2","37","0","0"},
                 ScrapeFromMhlwPDF2.parseLine("⾧    野 74 2,054 37 2 37 不明 0"));
         assertArrayEquals(new String[]{"長野","74","2054","37","2","37","0","0"},
