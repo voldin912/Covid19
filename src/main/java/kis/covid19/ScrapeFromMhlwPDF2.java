@@ -49,20 +49,21 @@ public class ScrapeFromMhlwPDF2 {
     }
     
     static String[] parseLine(String line) {
-        var conv = removeSpaceFromPref(line)
+        var conv = removeSpaceFromPref(line.replaceAll("　", " "))
             .replaceAll("不明", "0")
             .replaceAll(",", "");
         return conv.split("\\s+");
     }
     
     static String removeSpaceFromPref(String line) {
+        line = line.replaceAll("　", " ");
         var p = Pattern.compile("^\\D(\\s*\\D)+");
         var mat = p.matcher(line);
         if (!mat.find()) {
             return line;
         }
         var f = mat.group(0).trim();
-        var rf = f.replaceAll("\\s", "").replace("?", "長").replace("⾧", "長").replaceAll("　", "");
+        var rf = f.replaceAll("\\s+", "").replace("?", "長").replace("⾧", "長");
 
         return line.replace(f, rf);
     }
