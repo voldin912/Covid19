@@ -119,7 +119,7 @@ public class CreateData {
                         p.dates.add(date.toString());
                         p.patients.add(patients.getOrDefault(p.pref, zero).patients);
                         p.motarity.add(patients.getOrDefault(p.pref, zero).mortality);
-                        p.hospitalizations.add(patients.getOrDefault(p.pref, zero).hospitalizations);
+                        p.hospitalizations.add(Math.max(patients.getOrDefault(p.pref, zero).hospitalizations, 0));
                     }
                     prefs.lastUpdate = date.toString();
               });
