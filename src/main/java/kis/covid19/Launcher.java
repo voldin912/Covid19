@@ -63,8 +63,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/content/10906000/000635510.pdf"; // 5/30
         // var url = "https://www.mhlw.go.jp/content/10906000/000635537.pdf"; // 5/31
         // var url = "https://www.mhlw.go.jp/content/10906000/000635776.pdf"; // 6/1
-        var url = "https://www.mhlw.go.jp/content/10906000/000636132.pdf"; // 6/2
-
+        // var url = "https://www.mhlw.go.jp/content/10906000/000636132.pdf"; // 6/2
+        var url = "https://www.mhlw.go.jp/content/10906000/000636582.pdf"; // 6/3
         if (true) {
             // since 5/9
             ScrapeFromMhlwPDF2.scrape(url);

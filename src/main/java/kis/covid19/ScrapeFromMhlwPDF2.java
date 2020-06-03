@@ -49,7 +49,7 @@ public class ScrapeFromMhlwPDF2 {
     }
     
     static String[] parseLine(String line) {
-        var conv = removeSpaceFromPref(line.replaceAll("　", " "))
+        var conv = removeSpaceFromPref(line.trim().replaceAll("　", " "))
             .replaceAll("不明", "0")
             .replaceAll(",", "");
         return conv.split("\\s+");
