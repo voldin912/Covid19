@@ -30,4 +30,12 @@ public class UtilTest {
         assertEquals("北海道", Util.addPrefSuffix("北海道"));
         assertEquals("青森県", Util.addPrefSuffix("青森"));
     }
+    
+    @Test
+    public void testスペース除去() {
+        assertEquals("テスト", Util.stripSpace("テ ス ト"));
+        assertEquals("テスト", Util.stripSpace("テ  ス ト"));
+        assertEquals("テスト", Util.stripSpace("テ　ス ト"));
+        assertEquals("テスト", Util.stripSpace("テ　 ス ト"));
+    }
 }

@@ -89,7 +89,14 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/content/10906000/000643528.pdf"; // 6/25
         // var url = "https://www.mhlw.go.jp/content/10906000/000644139.pdf"; // 6/26
         // var url = "https://www.mhlw.go.jp/content/10906000/000644329.pdf"; // 6/27
-        var url = "https://www.mhlw.go.jp/content/10906000/000644367.pdf"; // 6/28
+        // var url = "https://www.mhlw.go.jp/content/10906000/000644367.pdf"; // 6/28
+        // var url = "https://www.mhlw.go.jp/content/10906000/000644583.pdf"; // 6/29
+        // var url = "https://www.mhlw.go.jp/content/10906000/000645007.pdf"; // 6/30
+        // var url = "https://www.mhlw.go.jp/content/10906000/000645320.pdf"; // 7/1
+        // var url = "https://www.mhlw.go.jp/content/10906000/000645663.pdf"; // 7/2
+        // var url = "https://www.mhlw.go.jp/content/10906000/000646194.pdf"; // 7/3 日付がとれず
+        var url = "https://www.mhlw.go.jp/content/10906000/000646571.pdf"; // 7/4 日付がとれず
+        
         if (true) {
             // since 5/9
             ScrapeFromMhlwPDF2.scrape(url);

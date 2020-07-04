@@ -33,11 +33,16 @@ public class Util {
         return result;
     }
 
+    static String stripSpace(String str) {
+        return str.replaceAll("[ 　]+", "");
+    }
+    
     static LocalDate readReiwaDate(String text) {
         var pt = Pattern.compile("(\\d+)年(\\d+)月(\\d+)日");
-        var mat = pt.matcher(Util.zenDigitToHan(text));
+        var mat = pt.matcher(zenDigitToHan(stripSpace(text)));
         if (!mat.find()) {
             throw new IllegalArgumentException("Can't find a date");
+            // return LocalDate.of(2020, 7, 2);
         }
         var dt = JapaneseDate.of(JapaneseEra.REIWA, 
                 Integer.parseInt(mat.group(1)),
