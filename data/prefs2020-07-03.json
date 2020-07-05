@@ -9,7 +9,7 @@
     "pcr" : 21190,
     "severe" : 5
   }, {
-    "pref" : "⻘森",
+    "pref" : "青森県",
     "patients" : 27,
     "hospitalizations" : 0,
     "discharges" : 26,
@@ -145,7 +145,7 @@
     "pcr" : 3461,
     "severe" : 0
   }, {
-    "pref" : "⼭梨",
+    "pref" : "山梨県",
     "patients" : 75,
     "hospitalizations" : 2,
     "discharges" : 72,
@@ -153,7 +153,7 @@
     "pcr" : 5756,
     "severe" : 0
   }, {
-    "pref" : "⻑野",
+    "pref" : "長野県",
     "patients" : 77,
     "hospitalizations" : 1,
     "discharges" : 76,
@@ -329,7 +329,7 @@
     "pcr" : 1649,
     "severe" : 0
   }, {
-    "pref" : "⻑崎",
+    "pref" : "長崎県",
     "patients" : 17,
     "hospitalizations" : 0,
     "discharges" : 16,
@@ -361,7 +361,7 @@
     "pcr" : 1582,
     "severe" : 0
   }, {
-    "pref" : "⿅児島",
+    "pref" : "鹿児島県",
     "patients" : 21,
     "hospitalizations" : 10,
     "discharges" : 11,

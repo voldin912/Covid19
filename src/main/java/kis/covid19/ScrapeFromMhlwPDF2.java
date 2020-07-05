@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import kis.covid19.CreateData.Pref;
+import org.jsoup.Jsoup;
 
 /**
  * for data since 5/9
@@ -13,10 +14,20 @@ import kis.covid19.CreateData.Pref;
  */
 public class ScrapeFromMhlwPDF2 {
     public static void main(String[] args) throws IOException, InterruptedException {
-        var url = "https://www.mhlw.go.jp/content/10906000/000628667.pdf";
-        System.out.println(Util.readPdf(url));
+        //var url = "https://www.mhlw.go.jp/content/10906000/000628667.pdf";
+        //System.out.println(Util.readPdf(url));
+        System.out.println(getPDFUrl("https://www.mhlw.go.jp/stf/newpage_12250.html"));
     }
 
+    static String getPDFUrl(String url) throws IOException {
+        var conn = Jsoup.connect(url);
+        var doc = conn.get();
+        return "https://www.mhlw.go.jp" + doc.select("a").stream()
+                .filter(elm -> elm.text().startsWith("各都道府県"))
+                .findFirst().orElseThrow()
+                .attr("href");
+    }
+    
     static void scrape(String url) throws IOException, InterruptedException {
         var text = Util.readPdf(url);
         var data = readData(text);
