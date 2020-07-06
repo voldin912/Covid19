@@ -41,8 +41,13 @@ public class Util {
         var pt = Pattern.compile("(\\d+)年(\\d+)月(\\d+)日");
         var mat = pt.matcher(zenDigitToHan(stripSpace(text)));
         if (!mat.find()) {
-            throw new IllegalArgumentException("Can't find a date");
-            // return LocalDate.of(2020, 7, 2);
+            if (true) {
+                throw new IllegalArgumentException("Can't find a date");
+            } else {
+                System.out.println("can't find a date");
+                System.out.println(text);
+                return LocalDate.of(2020, 7, 5);
+            }
         }
         var dt = JapaneseDate.of(JapaneseEra.REIWA, 
                 Integer.parseInt(mat.group(1)),
