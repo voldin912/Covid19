@@ -46,7 +46,7 @@ public class Util {
             } else {
                 System.out.println("can't find a date");
                 System.out.println(text);
-                return LocalDate.of(2020, 7, 5);
+                return LocalDate.of(2020, 7, 6);
             }
         }
         var dt = JapaneseDate.of(JapaneseEra.REIWA, 
