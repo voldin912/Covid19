@@ -98,7 +98,9 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/content/10906000/000646571.pdf"; // 7/4 日付がとれず。文字化けあり
         // var url = "https://www.mhlw.go.jp/stf/newpage_12250.html"; // 7/5
         // var url = "https://www.mhlw.go.jp/stf/newpage_12269.html"; // 7/6 // 日付エラー。文字化けあり
-        var url = "https://www.mhlw.go.jp/stf/newpage_12287.html"; // 7/7
+        // var url = "https://www.mhlw.go.jp/stf/newpage_12287.html"; // 7/7
+        var url = "https://www.mhlw.go.jp/stf/newpage_12312.html"; // 7/8
+        // var url = "https://www.mhlw.go.jp/stf/newpage_12339.html"; // 7/9
         
         if (true) {
             // since 5/9
