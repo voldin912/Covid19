@@ -29,10 +29,26 @@ public class ScrapeFromMhlwPDF2 {
     }
     
     static void scrape(String url) throws IOException, InterruptedException {
-        var text = Util.readPdf(url);
+        var text = convertStranges(Util.readPdf(url));
         var data = readData(text);
         var date = Util.readReiwaDate(text).plusDays(1);
         PrefJsonProc.writeJson(date, data);
+    }
+
+    static String convertStranges(String text) {
+        char[] strange = {'\u2ED8', '\u2F2D', '\u2ED1', '\u2FC5', '\u2F49', '\u2F47'};
+        char[] normal = {'\u9752', '\u5C71', '\u9577', '\u9E7F', '\u6708', '\u65E5'};
+        var str = new StringBuilder(text);
+        for (int i = 0; i < text.length(); ++i) {
+            for (int j = 0; j < strange.length; ++j) {
+                if (str.charAt(i) == strange[j]) {
+                    
+                    str.setCharAt(i, normal[j]);
+                    break;
+                }
+            }
+        }
+        return str.toString();
     }
     
     static List<Pref> readData(String text) {
