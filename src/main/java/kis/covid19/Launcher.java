@@ -2,6 +2,7 @@ package kis.covid19;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -103,7 +104,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_12339.html"; // 7/9
         // var url = "https://www.mhlw.go.jp/stf/newpage_12360.html"; // 7/10
         // var url = "https://www.mhlw.go.jp/stf/newpage_12375.html"; // 7/11
-        var url = "https://www.mhlw.go.jp/stf/newpage_12378.html"; // 7/12
+        // var url = "https://www.mhlw.go.jp/stf/newpage_12378.html"; // 7/12
+        var url = "https://www.mhlw.go.jp/stf/newpage_12392.html"; // 7/13
 
         if (true) {
             // since 5/9
