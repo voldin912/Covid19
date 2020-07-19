@@ -110,7 +110,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_12450.html"; // 7/15
         // var url = "https://www.mhlw.go.jp/stf/newpage_12467.html"; // 7/16
         // var url = "https://www.mhlw.go.jp/stf/newpage_12500.html"; // 7/17
-        var url = "https://www.mhlw.go.jp/stf/newpage_12515.html"; // 7/18
+        // var url = "https://www.mhlw.go.jp/stf/newpage_12515.html"; // 7/18
+        var url = "https://www.mhlw.go.jp/stf/newpage_12519.html"; // 7/19
 
         if (true) {
             // since 5/9
