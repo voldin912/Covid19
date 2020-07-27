@@ -205,7 +205,7 @@ function typeChanged(){
             case '3':
                 ch.data.datasets = [ch.data.datapool[1 + offset]];
                 break;
-            case '4':
+            case '4': // 拡大率
                 ch.data.datasets = [ch.data.datapool[4]];
                 labelOffset = 7;
                 type = 'linear';
@@ -213,9 +213,16 @@ function typeChanged(){
             case '5':
                 ch.data.datasets = [ch.data.datapool[6]];
                 break;
+            case '6':
+                ch.data.datasets = [ch.data.datapool[7]];
+                labelOffset = 14;
+                type = 'linear';
+                break;
         }
         if (type === 'logarithmic' && ch.options.pref) {
             ch.options.scales.yAxes[0].ticks.max = logMax;
+        } else if (sel === '6') {
+            ch.options.scales.yAxes[0].ticks.max = 5;
         } else {
             delete ch.options.scales.yAxes[0].ticks.max;
         }
@@ -281,6 +288,7 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     var patdif = new Array();
     var deathdif = new Array();
     var rateInWeek = new Array();
+    var rateReproduct = new Array();
     var patavg = [];
     for (var i = 1; i < patients.length; ++i) {
         patdif.push(Math.max(patients[i] - patients[i - 1], 0));
@@ -294,6 +302,16 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
                 rateInWeek.push(patients[i] / patients[i - 7]);
             } else {
                 rateInWeek.push(0);
+            }
+        }
+        // 実効再生産
+        if (i >= 14) {
+            var pre = patients[i - 7] - patients[i - 14];
+            if (pre > 0) {
+                var cur = patients[i] - patients[i - 7];
+                rateReproduct.push(Math.pow(cur / pre, 5/7));
+            } else {
+                rateReproduct.push(0);
             }
         }
         var min = Math.max(0, i - 7);
@@ -355,6 +373,15 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
                     label: "入院",
                     data: hospitalizations,
                     backgroundColor: "rgba(120,130,255,1)",
+                    pointRadius: 0,
+                    pointHitRadius: 3
+                },
+                {
+                    type: 'line',
+                    label: "実効再生産",
+                    data: rateReproduct,
+                    borderColor: "rgba(200, 255, 200, 0.8)",
+                    fill: false,
                     pointRadius: 0,
                     pointHitRadius: 3
                 }
