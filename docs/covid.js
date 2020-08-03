@@ -244,8 +244,7 @@ function addSpan(div, cls, text) {
 }
 
 function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, population, pref) {
-    var weekData = patients.slice(-8);
-    var weekAgo = weekData[0];
+    const weekData = patients.slice(-15);
     /*
     var rateText;
     if (weekAgo === 0) {
@@ -264,16 +263,25 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     addSpan(prefLabel, "value-label", ")");
     div.append(prefLabel);
     var rateDiv = $('<div></div>');
-    var daily = weekData[7] - weekData[6];
+    const daily = weekData[14] - weekData[13];
+    const weekly = weekData[14] - weekData[7];
+    const preWeek = weekData[7] - weekData[0];
     /*
     addSpan(rateDiv, "rate-value", rateText);
     addSpan(rateDiv, "rate-label", "倍/週");
     */
     addSpan(rateDiv, "rate-label", " 新規:");
     addSpan(rateDiv, "rate-value", daily);
+    /*
     addSpan(rateDiv, "rate-label", "人 週");
-    addSpan(rateDiv, "rate-value", Math.round((weekData[7] - weekAgo) * 100 / population * 100) / 100);
+    addSpan(rateDiv, "rate-value", Math.round((weekData[14] - weekAgo) * 100 / population * 100) / 100);
     addSpan(rateDiv, "rate-label", "人/10万");
+    */
+    addSpan(rateDiv, "rate-label", "人 実効再生産数:");
+    
+    addSpan(rateDiv, "rate-value", 
+        (weekly * preWeek === 0) ? 0 : Math.round(Math.pow(weekly / preWeek, 5/7) * 100) / 100);
+   
     /*
     addSpan(rateDiv, "rate-label", " (目標: ");
     addSpan(rateDiv, "rate-label", Math.round((weekData[7] * target / dailyTotal) * 10) / 10);
