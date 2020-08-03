@@ -98,7 +98,7 @@
     "severe" : 4
   }, {
     "pref" : "東京都",
-    "patients" : 12691,
+    "patients" : 13163,
     "hospitalizations" : 2744,
     "discharges" : 9615,
     "mortality" : 332,
@@ -314,7 +314,7 @@
     "severe" : 0
   }, {
     "pref" : "福岡県",
-    "patients" : 1756,
+    "patients" : 1877,
     "hospitalizations" : 661,
     "discharges" : 1062,
     "mortality" : 33,
