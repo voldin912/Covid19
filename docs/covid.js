@@ -40,7 +40,7 @@ data.prefs.forEach(pref => {
     var weekdata = pref.patients.slice(-31);
     var pre = weekdata[28] - weekdata[0];
     var latest = weekdata[30] - weekdata[0];
-    const thresould = 3;
+    const thresould = 2;
     
     if (pre === 0) {
         if (latest > 0) {
@@ -56,6 +56,7 @@ data.prefs.forEach(pref => {
     wholeJapanPerPopulation.push({pref: pref.pref, patient: latest * 100 / pref.population});
     wholePopulation += pref.population;
 
+    // 色付け
     if (rate > thresould) {
         rate = 1;
     } else {
