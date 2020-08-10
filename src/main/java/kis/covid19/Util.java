@@ -39,9 +39,23 @@ public class Util {
     
     static LocalDate readReiwaDate(String text) {
         var pt = Pattern.compile("(\\d+)年(\\d+)月(\\d+)日");
-        var mat = pt.matcher(zenDigitToHan(stripSpace(text)));
-        if (!mat.find()) {
-            if (true) {
+        String normtext = zenDigitToHan(stripSpace(text));
+        var mat = pt.matcher(normtext);
+        if (mat.find()) {
+            var dt = JapaneseDate.of(JapaneseEra.REIWA, 
+                    Integer.parseInt(mat.group(1)),
+                    Integer.parseInt(mat.group(2)),
+                    Integer.parseInt(mat.group(3)));
+            return LocalDate.from(dt);
+        } else {
+            var ptg = Pattern.compile("(\\d{4})/(\\d{1,2})/(\\d{1,2})24時");
+            var matg = ptg.matcher(normtext);
+            if (matg.find()) {
+                return LocalDate.of(
+                        Integer.parseInt(matg.group(1)),
+                        Integer.parseInt(matg.group(2)),
+                        Integer.parseInt(matg.group(3)));
+            }else if (true) {
                 throw new IllegalArgumentException("Can't find a date");
             } else {
                 System.out.println("can't find a date");
@@ -49,11 +63,6 @@ public class Util {
                 return LocalDate.of(2020, 7, 6);
             }
         }
-        var dt = JapaneseDate.of(JapaneseEra.REIWA, 
-                Integer.parseInt(mat.group(1)),
-                Integer.parseInt(mat.group(2)),
-                Integer.parseInt(mat.group(3)));
-        return LocalDate.from(dt);
     }
     
     public static String readPdf(String url) throws IOException, InterruptedException {
