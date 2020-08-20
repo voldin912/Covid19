@@ -13,9 +13,11 @@ var charts = [];
 var total = Array(data.prefs[0].patients.length);
 total.fill(0);
 var motarity = Array(data.prefs[0].motarity.length);
+var severes = Array(data.prefs[0].severes.length);
 var hospitalizations = Array(data.prefs[0].hospitalizations.length);
 motarity.fill(0);
 hospitalizations.fill(0);
+severes.fill(0);
 var wholeJapan = [];
 var wholeJapanPerPopulation = [];
 var wholePopulation = 0;
@@ -26,6 +28,7 @@ data.prefs.forEach(pref => {
         total[i] += pref.patients[i];
         motarity[i] += pref.motarity[i];
         hospitalizations[i] += pref.hospitalizations[i];
+        severes[i] += pref.severes[i];
     }
 
     // map data
@@ -75,7 +78,7 @@ data.prefs.forEach(pref => {
     });
 
     var motal = pref.motarity.slice(-1)[0];
-    [div, chart] = createChart(pref.pref, pref.dates, latest, motal, pref.patients, pref.hospitalizations, pref.motarity, pref.population, true);
+    [div, chart] = createChart(pref.pref, pref.dates, latest, motal, pref.patients, pref.hospitalizations, pref.motarity, pref.population, pref.severes, true);
     row.append(div);
     charts.push(chart);
     ++x;
@@ -91,7 +94,7 @@ if (x > 0) {
 
 var post = total.slice(-1)[0];
 var mot = motarity.slice(-1)[0];
-[div, chart] = createChart("全国", data.prefs[0].dates, post, mot, total, hospitalizations, motarity, wholePopulation, false);
+[div, chart] = createChart("全国", data.prefs[0].dates, post, mot, total, hospitalizations, motarity, wholePopulation, severes, false);
 charts.push(chart);
 firstrow.prepend(div);
 
@@ -221,6 +224,9 @@ function typeChanged(){
                 labelOffset = 14;
                 type = 'linear';
                 break;
+            case '7':
+                ch.data.datasets = [ch.data.datapool[8]];
+                break;
         }
         if (type === 'logarithmic' && ch.options.pref) {
             ch.options.scales.yAxes[0].ticks.max = logMax;
@@ -246,7 +252,7 @@ function addSpan(div, cls, text) {
     div.append(s);
 }
 
-function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, population, pref) {
+function createChart(name, dates, infect, motal, patients, hospitalizations, motarity, population, severes, pref) {
     const weekData = patients.slice(-15);
     /*
     var rateText;
@@ -392,6 +398,15 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
                     label: "実効再生産",
                     data: rateReproduct,
                     borderColor: "rgba(200, 255, 200, 0.8)",
+                    fill: false,
+                    pointRadius: 0,
+                    pointHitRadius: 3
+                },
+                {
+                    type: 'line',
+                    label: "重症者",
+                    data: severes,
+                    borderColor: "rgba(150, 150, 255, 0.8)",
                     fill: false,
                     pointRadius: 0,
                     pointHitRadius: 3
