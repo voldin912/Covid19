@@ -176,11 +176,11 @@ function typeChanged(){
     if ($('input[name="calc"]:checked').val() === '2') {
         offset = 0;
         labelOffset = 0;
-        logMax = 4000;
+        logMax = 20000;
     } else {
         offset = 2;
         labelOffset = 1;
-        logMax = 300;
+        logMax = 500;
     }
     if ($('input[name="axis"]:checked').val() === '2') {
         type = 'logarithmic';
