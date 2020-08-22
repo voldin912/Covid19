@@ -10,7 +10,9 @@ import java.time.chrono.JapaneseDate;
 import java.time.chrono.JapaneseEra;
 import java.util.regex.Pattern;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * @author naoki
@@ -74,6 +76,12 @@ public class Util {
         try (var is = res.body(); 
              var doc = PDDocument.load(is)) {
             var stripper = new PDFTextStripper();
+            var pageCount = doc.getNumberOfPages();
+            PDPage page;
+            if (pageCount == 3) {
+                stripper.setStartPage(2);
+                stripper.setEndPage(2);
+            }
             var text = stripper.getText(doc);
             return text;
         }
