@@ -30,6 +30,10 @@ public class ScrapeFromMhlwPDF2 {
     
     static void scrape(String url) throws IOException, InterruptedException {
         var text = convertStranges(Util.readPdf(url));
+        dataToJson(text);
+    }
+    
+    static void dataToJson(String text) throws IOException {
         var data = readData(text);
         var date = Util.readReiwaDate(text).plusDays(1);
         PrefJsonProc.writeJson(date, data);

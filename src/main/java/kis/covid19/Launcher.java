@@ -1,9 +1,8 @@
 package kis.covid19;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URLConnection;
-import java.sql.Connection;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 /**
@@ -159,14 +158,24 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_13292.html"; // 8/31
         // var url = "https://www.mhlw.go.jp/stf/newpage_13311.html"; // 9/1
         // var url = "https://www.mhlw.go.jp/stf/newpage_13335.html"; // 9/2
-        var url = "https://www.mhlw.go.jp/stf/newpage_13361.html"; // 9/3
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13361.html"; // 9/3
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13380.html"; // 9/4 could not read
+        // var url = "data/2020_9_4.tsv";
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13380.html"; // 9/5 could not read
+        var url = "data/2020_9_5.tsv";
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13402.html"; // 9/6
 
         if (true) {
             // since 5/9
-            if (url.endsWith("html")) {
-                url = ScrapeFromMhlwPDF2.getPDFUrl(url);
+            if (url.endsWith("tsv")) {
+                String text = Files.readString(Path.of(url));
+                ScrapeFromMhlwPDF2.dataToJson(text);
+            } else {
+                if (url.endsWith("html")) {
+                    url = ScrapeFromMhlwPDF2.getPDFUrl(url);
+                }
+                ScrapeFromMhlwPDF2.scrape(url);
             }
-            ScrapeFromMhlwPDF2.scrape(url);
         } else {
             // until 5/8
             LocalDate date;

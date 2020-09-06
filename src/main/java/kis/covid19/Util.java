@@ -77,7 +77,6 @@ public class Util {
              var doc = PDDocument.load(is)) {
             var stripper = new PDFTextStripper();
             var pageCount = doc.getNumberOfPages();
-            PDPage page;
             if (pageCount == 3) {
                 stripper.setStartPage(2);
                 stripper.setEndPage(2);
