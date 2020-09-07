@@ -340,7 +340,7 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
            dateLabels : dates,
            datapool: [{
                    type: 'line',
-                   label: "感染者",
+                   label: "感染者", // 累積
                    data: patients,
                    backgroundColor: "rgba(153,255,51,0.6)",
                    pointRadius: 0,
@@ -348,7 +348,7 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
                 },
                 {
                    type: 'line',
-                   label: "死者",
+                   label: "死者", // 累積
                    data: motarity,
                    backgroundColor: "rgba(100,0,0,1)",
                    pointRadius: 0,
@@ -357,13 +357,13 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
                 },
                 {
                    type: 'bar',
-                   label: "感染者",
+                   label: "感染者", // 日次
                    data: patdif,
                    backgroundColor: "rgba(0,200, 0,1)"
                 },
                 {
                    type: 'bar',
-                   label: "死者",
+                   label: "死者", // 日次
                    data: deathdif,
                    backgroundColor: "rgba(255,53,51,1)"
                 },
