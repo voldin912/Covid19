@@ -164,7 +164,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_13380.html"; // 9/5 could not read
         // var url = "data/2020_9_5.tsv";
         // var url = "https://www.mhlw.go.jp/stf/newpage_13402.html"; // 9/6
-        var url = "https://www.mhlw.go.jp/stf/newpage_13412.html"; // 9/7
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13412.html"; // 9/7
+        var url = "https://www.mhlw.go.jp/stf/newpage_13441.html"; // 9/8
 
         if (true) {
             // since 5/9
