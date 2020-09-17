@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  *
@@ -173,7 +174,8 @@ public class Launcher {
         // var url = "https://www.mhlw.go.jp/stf/newpage_13537.html"; // 9/13
         // var url = "https://www.mhlw.go.jp/stf/newpage_13567.html"; // 9/14
         // var url = "https://www.mhlw.go.jp/stf/newpage_13592.html"; // 9/15
-        var url = "https://www.mhlw.go.jp/stf/newpage_13619.html"; // 9/16
+        // var url = "https://www.mhlw.go.jp/stf/newpage_13619.html"; // 9/16
+        var url = "https://www.mhlw.go.jp/stf/newpage_13640.html"; // 9/17
 
         if (true) {
             // since 5/9
