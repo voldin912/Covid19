@@ -179,7 +179,7 @@ function typeChanged(){
     if ($('input[name="calc"]:checked').val() === '2') {
         offset = 0;
         labelOffset = 0;
-        logMax = 20000;
+        logMax = 40000;
     } else {
         offset = 2;
         labelOffset = 1;
@@ -228,7 +228,7 @@ function typeChanged(){
                 ch.data.datasets = [ch.data.datapool[8]];
                 break;
         }
-        if (type === 'logarithmic' && ch.options.pref) {
+        if (false && type === 'logarithmic' && ch.options.pref) {
             ch.options.scales.yAxes[0].ticks.max = logMax;
         } else if (sel === '6') {
             ch.options.scales.yAxes[0].ticks.max = 5;
