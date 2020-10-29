@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="新型コロナウィルス都道府県別感染者数の傾向"/>
-        <meta property="og:description" content="10/29 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
+        <meta property="og:description" content="10/26 新型コロナウィルスの都道府県別感染者数グラフ一覧"/>
         <meta property="og:image" content="https://kishida.github.io/covid19/map.png"/>
         <meta property="og:url" content="https://kishida.github.io/covid19/"/>
         <meta name="twitter:card" content="summary"/>
@@ -22,6 +22,8 @@
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -44,6 +46,7 @@
                 <input type="radio" id="pop1" name="population" value="1" checked><label for="pop1" class="control-label">感染者数</label>
                 <input type="radio" id="pop2" name="population" value="2"><label for="pop2" class="control-label">10万人あたり感染者数</label>
             </div>
+            <input type="text" id="slider">
         </div>
         <div style="display:block"></div>
         <div class="control">
@@ -77,8 +80,18 @@
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
     <script src="jquery.japan-map.min.js"></script>
     <script src="prefs.js"></script>
     <script src="covid.js"></script>
+    <script>
+        $("#slider").ionRangeSlider({
+            type: "double",
+            min: 0,
+            max: 1000,
+            from: 15,
+            to: 78
+        });
+    </script>
     </body>
 </html>
