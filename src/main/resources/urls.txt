@@ -257,10 +257,11 @@ https://www.mhlw.go.jp/stf/newpage_15794.html 12/26
 https://www.mhlw.go.jp/stf/newpage_15797.html 12/27
 https://www.mhlw.go.jp/stf/newpage_15801.html 12/28
 https://www.mhlw.go.jp/stf/newpage_15821.html 12/29
-https://www.mhlw.go.jp/stf/newpage_15825.html 12/30
-https://www.mhlw.go.jp/stf/newpage_15828.html 12/31
-https://www.mhlw.go.jp/stf/newpage_15832.html 1/1
-https://www.mhlw.go.jp/stf/newpage_15835.html 1/2
-https://www.mhlw.go.jp/stf/newpage_15838.html 1/3
-https://www.mhlw.go.jp/stf/newpage_15845.html 1/4
+https://www.mhlw.go.jp/stf/newpage_15825.html 12/30 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15828.html 12/31 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15832.html 1/1 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15835.html 1/2 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15838.html 1/3 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15845.html 1/4 use pref data for Fukuoka
 https://www.mhlw.go.jp/stf/newpage_15863.html 1/5
+https://www.mhlw.go.jp/stf/newpage_15887.html 1/6
