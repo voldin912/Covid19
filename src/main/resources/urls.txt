@@ -267,3 +267,4 @@ https://www.mhlw.go.jp/stf/newpage_15863.html 1/5
 https://www.mhlw.go.jp/stf/newpage_15887.html 1/6
 https://www.mhlw.go.jp/stf/newpage_15916.html 1/7
 https://www.mhlw.go.jp/stf/newpage_15947.html 1/8 use pref data for Fukuoka
+https://www.mhlw.go.jp/stf/newpage_15964.html 1/9
