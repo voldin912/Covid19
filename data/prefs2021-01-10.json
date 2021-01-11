@@ -202,7 +202,7 @@
     "severe" : 12
   }, {
     "pref" : "京都府",
-    "patients" : 5518,
+    "patients" : 5791,
     "hospitalizations" : 1081,
     "discharges" : 4368,
     "mortality" : 69,
@@ -314,7 +314,7 @@
     "severe" : 5
   }, {
     "pref" : "福岡県",
-    "patients" : 10736,
+    "patients" : 11062,
     "hospitalizations" : 2495,
     "discharges" : 8113,
     "mortality" : 128,
