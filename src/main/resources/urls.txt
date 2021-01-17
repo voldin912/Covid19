@@ -275,3 +275,4 @@ https://www.mhlw.go.jp/stf/newpage_16016.html 1/13
 https://www.mhlw.go.jp/stf/newpage_16066.html 1/14 use pref data for Fukuoka Kyoto
 https://www.mhlw.go.jp/stf/newpage_16096.html 1/15
 https://www.mhlw.go.jp/stf/newpage_16124.html 1/16
+https://www.mhlw.go.jp/stf/newpage_16127.html 1/17 use pref data for Kyoto Saitama, use NHK for Fukuoka
