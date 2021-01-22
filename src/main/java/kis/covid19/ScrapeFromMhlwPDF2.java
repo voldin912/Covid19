@@ -23,7 +23,7 @@ public class ScrapeFromMhlwPDF2 {
         var conn = Jsoup.connect(url);
         var doc = conn.get();
         return "https://www.mhlw.go.jp" + doc.select("a").stream()
-                .filter(elm -> elm.text().startsWith("各都道府県"))
+                .filter(elm -> elm.text().contains("各都道府県"))
                 .findFirst().orElseThrow()
                 .attr("href");
     }
