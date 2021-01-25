@@ -283,3 +283,5 @@ https://www.mhlw.go.jp/stf/newpage_16207.html 1/21
 https://www.mhlw.go.jp/stf/newpage_16251.html 1/22
 https://www.mhlw.go.jp/stf/newpage_16265.html 1/23
 https://www.mhlw.go.jp/stf/newpage_16263.html 1/24
+https://www.mhlw.go.jp/stf/newpage_16282.html 1/25
+data/2021_1_25.tsv
