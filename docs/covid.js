@@ -228,10 +228,12 @@ function typeChanged(){
                 ch.data.datasets = [ch.data.datapool[8]];
                 break;
         }
+        
+        // 縦軸最大値
         if (false && type === 'logarithmic' && ch.options.pref) {
             ch.options.scales.yAxes[0].ticks.max = logMax;
         } else if (sel === '6') {
-            ch.options.scales.yAxes[0].ticks.max = 5;
+            ch.options.scales.yAxes[0].ticks.max = 3;
         } else {
             delete ch.options.scales.yAxes[0].ticks.max;
         }
