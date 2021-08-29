@@ -21,6 +21,7 @@ severes.fill(0);
 var wholeJapan = [];
 var wholeJapanPerPopulation = [];
 var wholePopulation = 0;
+var expansion = 0;
 data.prefs.forEach(pref => {
     var slice = pref.patients.slice(-3);
 
@@ -91,6 +92,9 @@ data.prefs.forEach(pref => {
 if (x > 0) {
     c.append(row);
 }
+
+// 実効再生産1以上
+$("#expansion").text(expansion);
 
 var post = total.slice(-1)[0];
 var mot = motarity.slice(-1)[0];
@@ -288,10 +292,15 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     addSpan(rateDiv, "rate-value", Math.round((weekData[14] - weekData[7]) * 100 / population * 100) / 100);
     addSpan(rateDiv, "rate-label", "人/10万");
     */
+    // 実効再生産
     addSpan(rateDiv, "rate-label", "人 実効再生産数:");
     
+    var rate = Math.pow(weekly / preWeek, 5/7);
+    if (pref && rate >= 1) {
+        expansion++;
+    }
     addSpan(rateDiv, "rate-value", 
-        (weekly * preWeek === 0) ? 0 : Math.round(Math.pow(weekly / preWeek, 5/7) * 100) / 100);
+        (weekly * preWeek === 0) ? 0 : Math.round(rate * 100) / 100);
     
     /*
     addSpan(rateDiv, "rate-label", " (目標: ");
