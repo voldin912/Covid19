@@ -92,7 +92,7 @@ public class CreateData {
                 .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
 
-        var start = LocalDate.of(2021,6,25);
+        var start = LocalDate.of(2021,7,1);
         //var start = LocalDate.of(2020,3,8);
         Stream.concat(
                 Stream.iterate(start, d -> d.plusDays(1))
