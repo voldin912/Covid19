@@ -91,7 +91,7 @@ public class CreateData {
                 .map(p -> p.split(","))
                 .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
-
+java.math.BigDecimal.valueOf(0)
         var start = LocalDate.of(2021,7,1);
         //var start = LocalDate.of(2020,3,8);
         Stream.concat(
