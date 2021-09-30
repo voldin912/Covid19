@@ -16,7 +16,8 @@ public class ScrapeFromMhlwPDF2 {
     public static void main(String[] args) throws IOException, InterruptedException {
         //var url = "https://www.mhlw.go.jp/content/10906000/000628667.pdf";
         //System.out.println(Util.readPdf(url));
-        System.out.println(getPDFUrl("https://www.mhlw.go.jp/stf/newpage_12250.html"));
+        // System.out.println(getPDFUrl("https://www.mhlw.go.jp/stf/newpage_12250.html"));
+        scrape("https://www.mhlw.go.jp/content/10906000/000837763.pdf");
     }
 
     static String getPDFUrl(String url) throws IOException {

@@ -10,9 +10,7 @@ import java.time.chrono.JapaneseDate;
 import java.time.chrono.JapaneseEra;
 import java.util.regex.Pattern;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * @author naoki
@@ -62,7 +60,7 @@ public class Util {
             } else {
                 System.out.println("can't find a date");
                 System.out.println(text);
-                return LocalDate.of(2020, 7, 6);
+                return LocalDate.of(2021, 9, 29);
             }
         }
     }
