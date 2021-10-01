@@ -48,7 +48,7 @@ public class Util {
                     Integer.parseInt(mat.group(3)));
             return LocalDate.from(dt);
         } else {
-            var ptg = Pattern.compile("(\\d{4})/(\\d{1,2})/(\\d{1,2})24時");
+            var ptg = Pattern.compile("(\\d{4})/(\\d{1,2})/(\\d{1,2})");
             var matg = ptg.matcher(normtext);
             if (matg.find()) {
                 return LocalDate.of(
@@ -60,7 +60,7 @@ public class Util {
             } else {
                 System.out.println("can't find a date");
                 System.out.println(text);
-                return LocalDate.of(2021, 9, 29);
+                return LocalDate.of(2021, 9, 30);
             }
         }
     }

@@ -89,7 +89,7 @@
     "pcr" : 1429245,
     "severe" : 52
   }, {
-    "pref" : "千葉※５",
+    "pref" : "千葉県",
     "patients" : 99399,
     "hospitalizations" : 1241,
     "discharges" : 97167,
@@ -97,7 +97,7 @@
     "pcr" : 1047440,
     "severe" : 41
   }, {
-    "pref" : "東京※４",
+    "pref" : "東京都",
     "patients" : 375198,
     "hospitalizations" : 3532,
     "discharges" : 368758,
@@ -265,7 +265,7 @@
     "pcr" : 253818,
     "severe" : 5
   }, {
-    "pref" : "広島※５",
+    "pref" : "広島県",
     "patients" : 21555,
     "hospitalizations" : 324,
     "discharges" : 21035,
@@ -377,7 +377,7 @@
     "pcr" : 386989,
     "severe" : 42
   }, {
-    "pref" : "その他（その他）※３",
+    "pref" : "その他（その他）",
     "patients" : 149,
     "hospitalizations" : 0,
     "discharges" : 149,

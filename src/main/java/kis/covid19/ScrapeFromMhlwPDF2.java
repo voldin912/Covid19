@@ -57,7 +57,7 @@ public class ScrapeFromMhlwPDF2 {
     }
     
     static List<Pref> readData(String text) {
-        return text.replaceAll("※\\d+", "").lines()
+        return Util.zenDigitToHan(text).replaceAll("※\\d+", "").lines()
                 .map(ScrapeFromMhlwPDF2::parsePref)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toUnmodifiableList());
