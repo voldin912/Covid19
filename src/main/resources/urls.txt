@@ -533,3 +533,8 @@ https://www.mhlw.go.jp/stf/newpage_21312.html 9/28
 https://www.mhlw.go.jp/stf/newpage_21339.html 9/29
 https://www.mhlw.go.jp/stf/newpage_21367.html 9/30 日付読み込めず
 https://www.mhlw.go.jp/stf/newpage_21399.html 10/1
+https://www.mhlw.go.jp/stf/newpage_21429.html
+https://www.mhlw.go.jp/stf/newpage_21431.html
+https://www.mhlw.go.jp/stf/newpage_21435.html
+https://www.mhlw.go.jp/stf/newpage_21459.html
+https://www.mhlw.go.jp/stf/newpage_21491.html 10/6
