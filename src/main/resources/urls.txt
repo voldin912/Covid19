@@ -543,3 +543,4 @@ https://www.mhlw.go.jp/stf/newpage_21555.html 10/8
 https://www.mhlw.go.jp/stf/newpage_21582.html
 https://www.mhlw.go.jp/stf/newpage_21584.html 10/10 フォーマット激変、更新終了、と思ったら10/11にみると戻っていた
 https://www.mhlw.go.jp/stf/newpage_21588.html 10/11
+https://www.mhlw.go.jp/stf/newpage_21588.html 10/12
