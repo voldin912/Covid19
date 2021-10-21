@@ -23,7 +23,6 @@ var wholeJapanPerPopulation = [];
 var wholePopulation = 0;
 var expansion = 0;
 data.prefs.forEach(pref => {
-    var slice = pref.patients.slice(-3);
 
     for (var i = 0; i < pref.patients.length; ++i) {
         total[i] += pref.patients[i];
@@ -36,6 +35,7 @@ data.prefs.forEach(pref => {
     var rate;
 
     /* old map until 7/16
+    var slice = pref.patients.slice(-3);
     var pre = slice[0];
     var latest = slice[2];
     const thresould = 1.5;
@@ -343,11 +343,14 @@ function createChart(name, dates, infect, motal, patients, hospitalizations, mot
     var patavg = [];
     for (var i = 1; i < patients.length; ++i) {
         patdif.push(Math.max(patients[i] - patients[i - 1], 0));
-        if (i <= 12) {
+        // 死者
+        if (i <= 12 && false) {
             deathdif.push(0); // until 3/20
         } else {
             deathdif.push(Math.max(motarity[i] - motarity[i - 1], 0));
         }
+        
+        // 移動平均
         if (i >= 7) {
             if (patients[i - 7] > 0) {
                 rateInWeek.push(patients[i] / patients[i - 7]);
