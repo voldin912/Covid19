@@ -572,3 +572,6 @@ https://www.mhlw.go.jp/stf/newpage_22103.html
 https://www.mhlw.go.jp/stf/newpage_22108.html
 https://www.mhlw.go.jp/stf/newpage_22112.html 11/8
 https://www.mhlw.go.jp/stf/newpage_22130.html 11/9
+https://www.mhlw.go.jp/stf/newpage_22147.html
+https://www.mhlw.go.jp/stf/newpage_22167.html 11/11
+https://www.mhlw.go.jp/stf/newpage_22190.html 11/12
