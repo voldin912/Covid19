@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,8 +92,9 @@ public class CreateData {
                 .map(p -> p.split(","))
                 .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
-        var start = LocalDate.of(2021,9,15);
+        var start = LocalDate.of(2021,9,30);
         //var start = LocalDate.of(2020,3,8);
+        var tokyoDif = TokyoDiff.dateDiff();
         Stream.concat(
                 Stream.iterate(start, d -> d.plusDays(1))
                       .map(d -> Path.of(PrefJsonProc.jsonName(d)))
@@ -101,17 +103,16 @@ public class CreateData {
                 Stream.empty())
               .forEach(path -> {
                     InputPref data = PrefJsonProc.readJson(path);
-
-                    var pat = Pattern.compile("(\\d+-)?(\\d{1,2})[/-](\\d{1,2})");
+                    var pat = Pattern.compile("(\\d+)-(\\d{1,2})[/-](\\d{1,2})");
                     var mat = pat.matcher(data.lastupdate);
                     if (!mat.find()) {
                         throw new IllegalArgumentException("wrong date for " + data.lastupdate);
                     }
                     LocalDate date;
                     try {
-                        date = LocalDate.now()
-                                .withMonth(Integer.parseInt(mat.group(2)))
-                                .withDayOfMonth(Integer.parseInt(mat.group(3)));
+                        date = LocalDate.of(Integer.parseInt(mat.group(1)), 
+                                Integer.parseInt(mat.group(2)),
+                                Integer.parseInt(mat.group(3)));
                     } catch (DateTimeException ex) {
                         throw new RuntimeException("wrong date for " + data.lastupdate);
                     }
@@ -121,7 +122,18 @@ public class CreateData {
                     for (var p : prefs.prefs) {
                         p.dates.add(date.toString());
                         var pref = patients.getOrDefault(p.pref, zero);
-                        p.patients.add(pref.patients);
+                        if (p.pref.equals("東京都")) {
+                            var dt = date.minusDays(1);
+                            if (tokyoDif.containsKey(dt)) {
+                                p.patients.add(tokyoDif.get(dt).totalFixed());
+                            } else if (dt.isAfter(LocalDate.of(2021, 10, 2)) && dt.isBefore(LocalDate.of(2021, 10, 29))) {
+                                p.patients.add(pref.patients + 4512 - 447);
+                            } else {
+                                p.patients.add(pref.patients);
+                            }
+                        } else {
+                            p.patients.add(pref.patients);
+                        }
                         p.motarity.add(pref.mortality);
                         p.hospitalizations.add(Math.max(pref.hospitalizations, 0));
                         p.severes.add(pref.severe);
