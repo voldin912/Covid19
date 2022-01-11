@@ -92,7 +92,7 @@ public class CreateData {
                 .map(p -> p.split(","))
                 .map(p -> new ChartPref(p[0], p[1], p[2]))
                 .collect(Collectors.toUnmodifiableList());
-        var start = LocalDate.of(2021,10,15);
+        var start = LocalDate.of(2021,11,10);
         //var start = LocalDate.of(2020,3,8);
         var tokyoDif = TokyoDiff.dateDiff();
         Stream.concat(
