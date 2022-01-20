@@ -263,7 +263,8 @@ function typeChanged(){
         if (false && type === 'logarithmic' && ch.options.pref) {
             ch.options.scales.yAxes[0].ticks.max = logMax;
         } else if (sel === '6') {
-            ch.options.scales.yAxes[0].ticks.max = 3;
+            // 実効再生産
+            ch.options.scales.yAxes[0].ticks.max = 6;
         } else {
             delete ch.options.scales.yAxes[0].ticks.max;
         }

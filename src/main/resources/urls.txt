@@ -642,3 +642,5 @@ https://www.mhlw.go.jp/stf/newpage_23392.html
 https://www.mhlw.go.jp/stf/newpage_23394.html 1/16
 https://www.mhlw.go.jp/stf/newpage_23401.html 1/17
 https://www.mhlw.go.jp/stf/newpage_23433.html 1/18
+https://www.mhlw.go.jp/stf/newpage_23456.html 1/19
+https://www.mhlw.go.jp/stf/newpage_23488.html 1/20
