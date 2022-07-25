@@ -264,7 +264,7 @@ function typeChanged(){
             ch.options.scales.yAxes[0].ticks.max = logMax;
         } else if (sel === '6') {
             // 実効再生産
-            ch.options.scales.yAxes[0].ticks.max = 6;
+            ch.options.scales.yAxes[0].ticks.max = 3;
         } else {
             delete ch.options.scales.yAxes[0].ticks.max;
         }
